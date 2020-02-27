@@ -8,92 +8,21 @@
     android:background="#F7FDDD"
     android:orientation="vertical">
 
-    <View
-        android:id="@+id/bar1"
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:background="#2F4057"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.286" />
-
-    <View
-        android:id="@+id/bar2"
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:background="#2F4057"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.585" />
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="132dp"
-        android:text="Categories"
-        android:textColor="#2F4057"
-        android:textSize="30sp"
-        app:fontFamily="serif"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
     <Button
-        android:id="@+id/household_btn"
-        android:layout_width="128dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginLeft="44dp"
-        android:background="#B2CF60"
-        android:text="Household"
-        android:textColor="#455B36"
+        android:id="@+id/browse_btn"
+        android:layout_width="108dp"
+        android:layout_height="37dp"
+        android:background="@color/colorBtn_back"
+        android:text="Click Here"
+        android:textColor="@color/colorPara_btn"
         android:textSize="15sp"
+        app:fontFamily="@font/convergence"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.066"
+        app:layout_constraintHorizontal_bias="0.801"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
-
-    <Button
-        android:id="@+id/food_btn"
-        android:layout_width="128dp"
-        android:layout_height="42dp"
-        android:background="#B2CF60"
-        android:text="Food"
-        android:textColor="#455B36"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.212"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.364" />
-
-    <Button
-        android:id="@+id/personalCare_btn"
-        android:layout_width="128dp"
-        android:layout_height="42dp"
-        android:layout_marginEnd="47dp"
-        android:layout_marginRight="47dp"
-        android:background="#B2CF60"
-        android:text="Personal Care"
-        android:textColor="#455B36"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.949"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintVertical_bias="0.383" />
 
     <Button
         android:id="@+id/electronics_btn"
@@ -101,15 +30,154 @@
         android:layout_height="42dp"
         android:layout_marginEnd="44dp"
         android:layout_marginRight="44dp"
-        android:background="#B2CF60"
+        android:background="@color/colorBtn_back"
         android:text="Electronics"
-        android:textColor="#455B36"
+        android:textColor="@color/colorPara_btn"
         android:textSize="15sp"
+        app:fontFamily="@font/convergence"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.937"
+        app:layout_constraintHorizontal_bias="0.933"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.364" />
+        app:layout_constraintVertical_bias="0.658" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="132dp"
+        android:text="Categories"
+        android:textColor="@color/colorHead_Subhead"
+        android:textSize="30sp"
+        app:fontFamily="@font/baloo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.447" />
+
+    <Button
+        android:id="@+id/household_btn"
+        android:layout_width="128dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginLeft="44dp"
+        android:background="@color/colorBtn_back"
+        android:text="Household"
+        android:textColor="@color/colorPara_btn"
+        android:textSize="15sp"
+        app:fontFamily="@font/convergence"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.062"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.793" />
+
+    <Button
+        android:id="@+id/food_btn"
+        android:layout_width="128dp"
+        android:layout_height="42dp"
+        android:background="@color/colorBtn_back"
+        android:text="Food"
+        android:textColor="@color/colorPara_btn"
+        android:textSize="15sp"
+        app:fontFamily="@font/convergence"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.208"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.658" />
+
+    <Button
+        android:id="@+id/personalCare_btn"
+        android:layout_width="128dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginRight="47dp"
+        android:background="@color/colorBtn_back"
+        android:text="Personal Care"
+        android:textColor="@color/colorPara_btn"
+        android:textSize="15sp"
+        app:fontFamily="@font/convergence"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.944"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.793" />
+
+    <View
+        android:id="@+id/bar1"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/colorHead_Subhead"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.488" />
+
+    <View
+        android:id="@+id/bar2"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/colorHead_Subhead"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.865" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="189dp"
+        android:layout_height="141dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.072"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.289"
+        tools:srcCompat="@tools:sample/backgrounds/scenic[9]" />
+
+    <TextView
+        android:id="@+id/label_browse"
+        android:layout_width="191dp"
+        android:layout_height="106dp"
+        android:clickable="false"
+        android:gravity="center"
+        android:text="@string/browse_btn"
+        android:textColor="@color/colorHead_Subhead"
+        android:textSize="24dp"
+        app:fontFamily="@font/baloo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.927"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.256" />
+
+    <ScrollView
+        android:layout_width="408dp"
+        android:layout_height="667dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

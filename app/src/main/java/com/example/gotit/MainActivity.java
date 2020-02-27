@@ -1,45 +1,72 @@
 package com.example.gotit;
 
-import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentTransaction;
 
 
 import com.example.gotit.fragments.CategoryFragment;
 import com.example.gotit.fragments.FeedFragment;
 //import com.example.gotit.fragments.ProfileFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private final String WHERE = "WHERE";
+    private final String CATEGORY = "CATEGORY";
+    private final FragmentManager fragmentManager = getSupportFragmentManager();
+    private ImageView back;
+    private Boolean home = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        ImageView back = findViewById(R.id.back_btn);
         setSupportActionBar(toolbar);
 
+        //Set Home Screen
+        CategoryFragment homeFragment = new CategoryFragment();
+        fragmentManager.beginTransaction()
+                .replace(R.id.flContainer, homeFragment, CATEGORY)
+                .addToBackStack(CATEGORY)
+                .commit();
 
+        back.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Log.d("CLICK", "click works");
+                fragmentManager.popBackStack();
+                /*if (fragmentManager.fin)){
+                    fragmentManager.popBackStack();
+                }*/
+            }
+        });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_top_nav, menu);
-        Log.d(WHERE, "here");
+
         return true;
     }
 
@@ -56,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new CategoryFragment();
                 break;
             case R.id.action_shopcart:
-                fragment = new FeedFragment();
+                fragment = new CategoryFragment();
                 break;
             default: fragment = new CategoryFragment();
         }
@@ -67,6 +94,12 @@ public class MainActivity extends AppCompatActivity {
         return true;
         //return super.onOptionsItemSelected(item);
     }
+
+    public void hideButton(Boolean b){
+        home = b;
+    }
+
+
     /*
     @Override
 

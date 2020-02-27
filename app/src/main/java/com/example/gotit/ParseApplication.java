@@ -11,6 +11,8 @@ public class ParseApplication extends Application{
         super.onCreate();
 
         ParseObject.registerSubclass(User.class);
+        ParseObject.registerSubclass(Store.class);
+        ParseObject.registerSubclass(Customer.class);
 
         // set applicationId, and server server based on the values in the Heroku settings.
         // clientKey is not needed unless explicitly configured

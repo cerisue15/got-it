@@ -10,6 +10,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+
     }
     buildTypes {
         release {
@@ -36,6 +38,7 @@ dependencies {
     implementation 'com.parse.bolts:bolts-android:1.4.0'
     implementation 'com.github.parse-community.Parse-SDK-Android:parse:1.20.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    implementation 'com.github.jd-alexander:LikeButton:0.2.3'
 
     // for logging API calls to LogCat
     implementation "androidx.appcompat:appcompat:${appCompatVersion}"

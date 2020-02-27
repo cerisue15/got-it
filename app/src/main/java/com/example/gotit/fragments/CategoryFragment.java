@@ -21,7 +21,10 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.example.gotit.MainActivity;
 import com.example.gotit.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -48,6 +51,9 @@ public class CategoryFragment extends Fragment {
     private Button btnElectronics;
     private Button btnHousehold;
     private Button btnPersonalCare;
+    private Button browse;
+    private Button back;
+    protected final String FEED = "FEED";
 
     //changed these below from public to private
     private final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
@@ -59,8 +65,35 @@ public class CategoryFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_category, container, false);
+        View view = inflater.inflate(R.layout.fragment_category, container, false);
 
+        btnFood = view.findViewById(R.id.food_btn);
+        btnElectronics = view.findViewById(R.id.electronics_btn);
+        btnHousehold = view.findViewById(R.id.household_btn);
+        btnPersonalCare = view.findViewById(R.id.personalCare_btn);
+        browse = view.findViewById(R.id.browse_btn);
+
+        browse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.flContainer, new FeedFragment());
+                fragmentTransaction.addToBackStack(FEED);
+                fragmentTransaction.commit();
+            }
+        });
+
+        btnElectronics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.flContainer, new CategoryFragment());
+                fragmentTransaction.commit();
+            }
+        });
+
+
+        return view;
     }
 
     // This event is triggered soon after onCreateView().
@@ -68,32 +101,13 @@ public class CategoryFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btnFood = view.findViewById(R.id.food_btn);
-        btnElectronics = view.findViewById(R.id.electronics_btn);
-        btnHousehold = view.findViewById(R.id.household_btn);
-        btnPersonalCare = view.findViewById(R.id.personalCare_btn);
 
 
-        btnFood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                launchCamera();
-            }
-        });
 
-        btnElectronics.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String caption = etCaption.getText().toString();
-                ParseUser author = ParseUser.getCurrentUser();
 
-                if (photoFile == null || imagePost.getDrawable() == null) {
-                    Log.e(ERROR, "No photo to submit");
-                    Toast.makeText(getContext(), "There is no photo!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            }
-        });
+
+
+
     }
 
     private void launchCamera() {

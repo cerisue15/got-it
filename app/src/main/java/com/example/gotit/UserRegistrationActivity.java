@@ -1,6 +1,7 @@
 package com.example.gotit;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
@@ -12,7 +13,9 @@ import android.widget.Toast;
 
 
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
 
@@ -61,7 +64,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
                 //verify(fname, lname, email, username, password);
 
-                register(name, email, username, password);
+                //register(name, email, username, password);
+                register2(fname, lname, username, email, password);
+
             }
         });
 
@@ -80,7 +85,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
         }*/
 
-    private void register(String name, String email, String username, String password) {
+    /*private void register(String name, String email, String username, String password) {
 
         User user = new User();
         ParseUser parseUser = new ParseUser();
@@ -110,12 +115,49 @@ public class UserRegistrationActivity extends AppCompatActivity {
             }
         });
 
+    }*/
+
+    private void register2(String fname, String lname, String email, String username, String password) {
+
+        ParseObject customer = ParseObject.create("Customer");
+        //ParseUser parseUser = new ParseUser();
+        customer.put("cus_first_name", fname );
+        customer.put("cus_last_name", lname );
+        customer.put("cus_email", email);
+        customer.put("cus_username", username);
+        customer.put("cus_password", password);
+        //parseUser.put(user.KEY_PHONENUM, phonenum);
+
+
+        customer.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null){
+                    Log.e(ERROR, "Error in signing up user");
+                    e.printStackTrace();
+                    return;
+                }
+                Log.d(SIGNUP, "Sign Up Successful");
+                etfname.setText("");
+                etlname.setText("");
+                etusername.setText("");
+                etpassword.setText("");
+                etemail.setText("");
+                //etphonenum.setText("");
+
+            }
+        });
+
+        ProgressDialog dialog = ProgressDialog.show(UserRegistrationActivity.this, "",
+                "Loading. Please wait...", true);
+        goLoginPage();
     }
 
 
     private void goLoginPage() {
         Intent i = new Intent(this, LoginActivity.class);
         startActivity(i);
+        Toast.makeText(UserRegistrationActivity.this, "Log into your new account", Toast.LENGTH_SHORT).show();
         Log.d("WORKING", "It's working");
         finish();
     }
