@@ -12,11 +12,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
-import com.parse.ParseUser;
+import com.parse.ParseQuery;
 import com.parse.SaveCallback;
-import com.parse.SignUpCallback;
+
+import java.util.List;
 
 
 public class UserRegistrationActivity extends AppCompatActivity {
@@ -31,7 +33,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
     //private EditText etphonenum;
     private Button btn_cancel;
     private Button btn_SignUp;
-
 
 
     @Override
@@ -62,10 +63,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 String username = etusername.getText().toString();
                 //String phonenum = PhoneNumberUtils.formatNumber(etphonenum.getText().toString());
 
-                //verify(fname, lname, email, username, password);
-
-                //register(name, email, username, password);
-                register2(fname, lname, username, email, password);
+                verify(fname, lname, email, username, password);
 
             }
         });
@@ -73,54 +71,43 @@ public class UserRegistrationActivity extends AppCompatActivity {
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goLoginPage();
+                goLoginActivity();
             }
         });
 
     }
 
-    /*private void verify(String fname, String lname, String email, String username, String password) {
+    private void verify(final String fname,final String lname,final String email,final String username,final String password) {
+        if (username.length()==0 || password.length()==0 || fname.length()==0 || lname.length()==0 || email.length()==0){
+            Toast.makeText(UserRegistrationActivity.this, "Fields cannot be left blank", Toast.LENGTH_SHORT).show();
+        }
+        else {
 
-        if (fname == "") { Toast.makeText(UserRegistration.this, "There is no photo!", Toast.LENGTH_SHORT).show(); }
+            //Query to check user input against object (username)
+            ParseQuery<ParseObject> userQuery = ParseQuery.getQuery("Customer");
+            userQuery.whereEqualTo("cus_username", username);
+            userQuery.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> objects, ParseException e) {
+                    Log.d("users", "Retrieved " + objects.size() + " users");
 
-        }*/
-
-    /*private void register(String name, String email, String username, String password) {
-
-        User user = new User();
-        ParseUser parseUser = new ParseUser();
-        parseUser.setUsername(username);
-        parseUser.setPassword(password);
-        parseUser.put(user.KEY_NAME, name);
-        parseUser.put(user.KEY_USERNAME, username);
-        parseUser.put(user.KEY_EMAIL, email);
-        //parseUser.put(user.KEY_PHONENUM, phonenum);
-
-
-        parseUser.signUpInBackground(new SignUpCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e != null){
-                    Log.e(ERROR, "Error in signing up user");
-                    e.printStackTrace();
-                    return;
+                    if (objects.size() != 0) {
+                        Toast.makeText(UserRegistrationActivity.this, "Username already taken", Toast.LENGTH_SHORT).show();
+                        Log.d("users", "Retrieved " + objects.get(0).get("cus_username"));
+                        Log.d("users", "Retrieved " + objects.size() + " users");
+                    }
+                    else{
+                        register(fname, lname, username, email, password);
+                    }
                 }
-                Log.d(SIGNUP, "Sign Up Successful");
-                etfname.setText("");
-                etlname.setText("");
-                etusername.setText("");
-                etpassword.setText("");
-               //etphonenum.setText("");
+            });
+        }
+    }
 
-            }
-        });
 
-    }*/
-
-    private void register2(String fname, String lname, String email, String username, String password) {
+    private void register(String fname, String lname, String username, String email, String password) {
 
         ParseObject customer = ParseObject.create("Customer");
-        //ParseUser parseUser = new ParseUser();
         customer.put("cus_first_name", fname );
         customer.put("cus_last_name", lname );
         customer.put("cus_email", email);
@@ -150,11 +137,11 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
         ProgressDialog dialog = ProgressDialog.show(UserRegistrationActivity.this, "",
                 "Loading. Please wait...", true);
-        goLoginPage();
+        goLoginActivity();
     }
 
 
-    private void goLoginPage() {
+    private void goLoginActivity() {
         Intent i = new Intent(this, LoginActivity.class);
         startActivity(i);
         Toast.makeText(UserRegistrationActivity.this, "Log into your new account", Toast.LENGTH_SHORT).show();
