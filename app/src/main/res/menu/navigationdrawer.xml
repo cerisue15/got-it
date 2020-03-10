@@ -4,14 +4,15 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item android:id="@+id/favorites"
+        <item
+            android:id="@+id/favorites"
             android:icon="@drawable/ic_favorite"
-            android:title="Favorites"/>
+            android:title="Favorites" />
         <item android:id="@+id/bookmarks"
             android:icon="@drawable/ic_bookmark"
             android:title="Bookmarks"/>
         <item android:id="@+id/places"
-            android:icon="@mipmap/ic_heart_menu"
+            android:icon="@drawable/ic_map"
             android:title="Places"/>
     </group>
 
