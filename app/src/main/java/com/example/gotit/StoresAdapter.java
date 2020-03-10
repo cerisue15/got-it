@@ -74,11 +74,11 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.ViewHolder
                 public void onClick(View v){
 
                     if (favorited == false) {
-                        heart_btn.setImageResource(R.mipmap.ic_launcher_heart);
+                        heart_btn.setImageResource(R.drawable.ic_favorite_48dp);
                         favorited = true;
                     }
                     else {
-                        heart_btn.setImageResource(R.mipmap.ic_launcher_heartopen);
+                        heart_btn.setImageResource(R.drawable.ic_favorite_border_48dp);
                         favorited = false;
                     }
                 }

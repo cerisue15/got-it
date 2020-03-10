@@ -1,7 +1,10 @@
 package com.example.gotit;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private final FragmentManager fragmentManager = getSupportFragmentManager();
     private ImageView back;
     private Boolean home = false;
+    private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,14 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         ImageView back = findViewById(R.id.back_btn);
         setSupportActionBar(toolbar);
+
+
+        drawer = findViewById(R.id.drawer_layout);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
         //Set Home Screen
         CategoryFragment homeFragment = new CategoryFragment();
@@ -58,6 +70,18 @@ public class MainActivity extends AppCompatActivity {
                 }*/
             }
         });
+    }
+
+    @Override
+    public void onBackPressed(){
+        if (drawer.isDrawerOpen(GravityCompat.START)){
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else{
+            super.onBackPressed();
+        }
+
+
     }
 
 
