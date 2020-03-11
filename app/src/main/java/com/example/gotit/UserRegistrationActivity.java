@@ -20,7 +20,9 @@ import com.parse.SaveCallback;
 
 import java.util.List;
 
-
+//----------------------------------------------------------------------------------
+//  The activity that allows a user to Register as a customer
+//----------------------------------------------------------------------------------
 public class UserRegistrationActivity extends AppCompatActivity {
 
     private final String SIGNUP = "SIGNUP";
@@ -34,7 +36,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
     private Button btn_cancel;
     private Button btn_SignUp;
 
-
+    //----------------------------------------------------------------------------------
+    //  Set view
+    //----------------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +53,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
         btn_cancel = findViewById(R.id.btn_Cancel);
         btn_SignUp = findViewById(R.id.btn_Submit);
 
+        //----------------------------------------------------------------------------------
+        //  Listening for a click on the Sign Up button
+        //----------------------------------------------------------------------------------
         btn_SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +75,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
             }
         });
 
+        //----------------------------------------------------------------------------------
+        //  Listening for a click on the Cancel button
+        //----------------------------------------------------------------------------------
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,6 +87,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
     }
 
+    //----------------------------------------------------------------------------------
+    //  Verifying that the Customers credentials are unique
+    //----------------------------------------------------------------------------------
     private void verify(final String fname,final String lname,final String email,final String username,final String password) {
         if (username.length()==0 || password.length()==0 || fname.length()==0 || lname.length()==0 || email.length()==0){
             Toast.makeText(UserRegistrationActivity.this, "Fields cannot be left blank", Toast.LENGTH_SHORT).show();
@@ -104,7 +117,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
         }
     }
 
-
+    //----------------------------------------------------------------------------------
+    //  Registering a new customer
+    //----------------------------------------------------------------------------------
     private void register(String fname, String lname, String username, String email, String password) {
 
         ParseObject customer = ParseObject.create("Customer");
@@ -140,7 +155,10 @@ public class UserRegistrationActivity extends AppCompatActivity {
         goLoginActivity();
     }
 
-
+    //----------------------------------------------------------------------------------
+    //  Functionality that allows a user to navigate to the Login page
+    //  after successfully registering
+    //----------------------------------------------------------------------------------
     private void goLoginActivity() {
         Intent i = new Intent(this, LoginActivity.class);
         startActivity(i);

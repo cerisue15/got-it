@@ -15,58 +15,48 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.gotit.fragments.ListProductsFragment;
-import com.parse.GetCallback;
-import com.parse.ParseException;
+import com.example.gotit.fragments.ListStoresFragment;
 import com.parse.ParseFile;
-import com.parse.ParseObject;
 
 import java.util.List;
 
-//----------------------------------------------------------------------------------
-//  Creating the view that allows a scrollable list of stores
-//----------------------------------------------------------------------------------
-public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.ViewHolder> {
+public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHolder> {
 
     private Context context;
-    private List<Store> stores;
+    private List<Product> products;
     private Boolean favorited = false;
     private final String LISTPRODUCTS = "LISTPRODUCTS";
 
-    public StoresAdapter(Context context, List<Store> stores) {
+    public ProductsAdapter(Context context, List<Product> products){
         this.context = context;
-        this.stores = stores;
+        this.products = products;
     }
 
     //----------------------------------------------------------------------------------
-    //  Creating the view that allows a scrollable list of stores (Recycler)
+    //  Creating the view that allows a scrollable list of products (Recycler)
     //----------------------------------------------------------------------------------
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.store_post, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.product_post, parent, false);
 
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Store store = stores.get(position);
-        holder.bind(store);
-
+        Product product = products.get(position);
+        holder.bind(product);
     }
 
-    //----------------------------------------------------------------------------------
-    //  Add the view of the stores
-    //----------------------------------------------------------------------------------
     @Override
     public int getItemCount() {
-        return stores.size();
+        return products.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView storeName;
+        private TextView productName;
         private ImageButton heart_btn;
         private Button viewProducts_btn;
         private TextView tvCaption;
@@ -78,7 +68,7 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.ViewHolder
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            storeName = itemView.findViewById(R.id.storeName);
+            productName = itemView.findViewById(R.id.productName);
             tvCaption = itemView.findViewById(R.id.tvCaption);
             ivImage = itemView.findViewById(R.id.ivImage);
             heart_btn = itemView.findViewById(R.id.heart_icon);
@@ -90,16 +80,29 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.ViewHolder
             //----------------------------------------------------------------------------------
             heart_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(View v){
 
                     if (favorited == false) {
                         heart_btn.setImageResource(R.drawable.ic_favorite_48dp);
                         favorited = true;
-                    } else {
+                    }
+                    else {
                         heart_btn.setImageResource(R.drawable.ic_favorite_border_48dp);
                         favorited = false;
                     }
                 }
+            });
+
+            viewProducts_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view){
+
+                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                    Fragment myFragment = new ListStoresFragment();
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, myFragment).addToBackStack(LISTPRODUCTS).commit();
+
+                }
+
             });
 
 
@@ -108,51 +111,23 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.ViewHolder
         //----------------------------------------------------------------------------------
         //  Put store on Recycler View
         //----------------------------------------------------------------------------------
-        public void bind(final Store store) {
+        public void bind(Product product){
 
-            storeName.setText(store.getStoreName());
-            //Log.d("STORE", "store ID : " + store.getStoreId());
+            productName.setText(product.getProductName());
+            ParseFile image = product.getImage();
+            if(image != null){
+                Glide.with(context).load(image.getUrl()).into(ivImage);
+            }
             //tvCaption.setText(store.getCaption());
-
-            //----------------------------------------------------------------------------------
-            //  View product
-            //----------------------------------------------------------------------------------
-            viewProducts_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                    ListProductsFragment prodFrag = new ListProductsFragment();
-                    prodFrag.setStoreId(store.getStoreId());
-                    Fragment myFragment = prodFrag;
-
-                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, myFragment).addToBackStack(LISTPRODUCTS).commit();
-
-                }
-
-            });
-
-            //----------------------------------------------------------------------------------
-            //  Add vendor images
-            //----------------------------------------------------------------------------------
-            store.getParseObject("ven_id").fetchIfNeededInBackground(new GetCallback<ParseObject>() {
-                @Override
-                public void done(ParseObject object, ParseException e) {
-                    ParseObject vendor = object;
-                    ParseFile image = vendor.getParseFile("img");
-                    if (image != null) {
-                        Glide.with(context).load(image.getUrl()).into(ivImage);
-                    }
-
-                }
-            });
-
+            /*ParseFile image = post.getImage();
+            if(image != null){
+                Glide.with(context).load(image.getUrl()).into(ivImage);
+            }*/
+            //Log.d("COMMENT", "Comments: " + post.getCommentCount());
 
 
 
         }
 
-
     }
-
 }

@@ -11,7 +11,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rviewPosts"
         android:layout_width="375dp"
-        android:layout_height="508dp"
+        android:layout_height="500dp"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="25dp"
         android:layout_marginRight="25dp"

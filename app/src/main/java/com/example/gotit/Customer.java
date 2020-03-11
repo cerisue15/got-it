@@ -9,9 +9,13 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+//----------------------------------------------------------------------------------
+// Creating an object for each customer
+//----------------------------------------------------------------------------------
 @ParseClassName("Customer")
 public class Customer extends ParseObject {
 
+        public static final String KEY_CUSTOMER = "objectId";
         public static final String KEY_STATUS = "cus_status";
         public static final String KEY_FIRSTNAME = "cus_first_name";
         public static final String KEY_LASTNAME = "cus_last_name";
@@ -22,6 +26,13 @@ public class Customer extends ParseObject {
         public static final String KEY_IMAGE ="image";
 
         public Customer() {super();}
+
+        public ParseUser getCustomerId() {
+                return getParseUser(KEY_CUSTOMER);
+        }
+        public void setCustomerId(ParseUser customerId){
+                put(KEY_CUSTOMER, customerId);
+        }
 
         public String getFirstName(){ return getString(KEY_FIRSTNAME); }
         public void setFirstName(String firstName){ put(KEY_FIRSTNAME, firstName); }

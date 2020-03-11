@@ -16,9 +16,14 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import java.util.List;
 
+//----------------------------------------------------------------------------------
+// The activity that allows a user to Login
+// Also a feature to take a user to a registration activity
+//----------------------------------------------------------------------------------
 public class LoginActivity extends AppCompatActivity {
 
     private final String LOGGED = "LOGGED";
@@ -28,12 +33,14 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnSignIn;
     private ImageView imvIcon;
 
+    //----------------------------------------------------------------------------------
+    // Set the view
+    //----------------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ui_login);
-
-        //added
+        ParseUser.getCurrentUser().logOut();
 
         etUsername = findViewById(R.id.login_username);
         etPassword = findViewById(R.id.login_password);
@@ -41,7 +48,9 @@ public class LoginActivity extends AppCompatActivity {
         btnSignIn = findViewById(R.id.signin_btn);
         btnSignUp = findViewById(R.id.btn_SignUp);
 
-
+        //----------------------------------------------------------------------------------
+        // Listen for a click on the Sign In Button
+        //----------------------------------------------------------------------------------
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,7 +67,9 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
+        //----------------------------------------------------------------------------------
+        // Listen for a click on the Sign Up Button
+        //----------------------------------------------------------------------------------
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +79,10 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    //----------------------------------------------------------------------------------
+    // Functionality for the Sign Up Button
+    // Takes user to the User Registration Activity to register
+    //----------------------------------------------------------------------------------
     private void goUserRegistration() {
         Intent i = new Intent(this, UserRegistrationActivity.class);
         startActivity(i);
@@ -75,7 +90,11 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    //Function to validate user
+    //----------------------------------------------------------------------------------
+    // Functionality for the Sign In Button
+    // This function logs in the the user
+    // This function validates the user credentials
+    //----------------------------------------------------------------------------------
     private void login(String user, String password) {
 
         //Query to check user input against object (username)
@@ -85,6 +104,8 @@ public class LoginActivity extends AppCompatActivity {
         userQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
+
+                Log.d("TAG", "Amount:" + objects.size());
                 if (objects.size() != 0) {
                     Log.d("users", "Retrieved " + objects.get(0).get("cus_username"));
 
@@ -97,6 +118,10 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    //----------------------------------------------------------------------------------
+    // This function takes the user to the Main Activity after they were
+    // successfully logged in
+    //----------------------------------------------------------------------------------
     private void goMainActivity() {
         Log.d(LOGGED, "logging in");
         Intent i = new Intent(this, MainActivity.class);
