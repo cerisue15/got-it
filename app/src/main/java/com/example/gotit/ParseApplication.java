@@ -4,6 +4,9 @@ import android.app.Application;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
+//----------------------------------------------------------------------------------
+// Initialize Parse
+//----------------------------------------------------------------------------------
 public class ParseApplication extends Application{
 
     @Override
@@ -13,6 +16,8 @@ public class ParseApplication extends Application{
         ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Store.class);
         ParseObject.registerSubclass(Customer.class);
+        ParseObject.registerSubclass(Product.class);
+        ParseObject.registerSubclass(Vendor.class);
 
         // set applicationId, and server server based on the values in the Heroku settings.
         // clientKey is not needed unless explicitly configured

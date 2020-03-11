@@ -5,6 +5,9 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.ParseClassName;
 
+//----------------------------------------------------------------------------------
+// Creating an object for Store
+//----------------------------------------------------------------------------------
 @ParseClassName("Store")
 public class Store extends ParseObject {
     public static final String KEY_STORE = "objectId";
@@ -16,15 +19,14 @@ public class Store extends ParseObject {
     public static final String KEY_NAME = "sto_name";
     public static final String KEY_PHONE = "sto_phone";
     public static final String KEY_ZIPCODE = "sto_zipcode";
+    public static final String KEY_VEN_ID ="ven_id";
 
     public Store() {super();}
 
-    public ParseUser getStoreId() {
-        return getParseUser(KEY_STORE);
+    public String getStoreId() {
+        return getObjectId();
     }
-    public void setStoreId(ParseUser storeId){
-        put(KEY_STORE, storeId);
-    }
+    //public void setStoreId(String storeId){ put(KEY_STORE, storeId); }
 
     public String getStoreState() {
         return getString(KEY_STATE);
@@ -45,13 +47,6 @@ public class Store extends ParseObject {
     }
     public void setStoreEmail(String storeEmail){
         put(KEY_EMAIL, storeEmail);
-    }
-
-    public ParseUser getStoreVendor() {
-        return getParseUser(KEY_VENDOR);
-    }
-    public void setStoreVendor(String storeVendor){
-        put(KEY_VENDOR, storeVendor);
     }
 
     public String getStoreCity() {
@@ -79,5 +74,11 @@ public class Store extends ParseObject {
     public void setStoreZipcode(Number storeZipcode){
         put(KEY_ZIPCODE, storeZipcode);
     }
+
+    public String getVendorId() {
+        return getString(KEY_VEN_ID);
+    }
+
+    //public Vendor getStoreVendor() {return getString(KEY_VEN_ID);}
 }
 

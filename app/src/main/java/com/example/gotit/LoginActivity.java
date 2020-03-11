@@ -13,15 +13,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
-import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
-import java.util.ArrayList;
 import java.util.List;
 
+//----------------------------------------------------------------------------------
+// The activity that allows a user to Login
+// Also a feature to take a user to a registration activity
+//----------------------------------------------------------------------------------
 public class LoginActivity extends AppCompatActivity {
 
     private final String LOGGED = "LOGGED";
@@ -31,12 +33,14 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnSignIn;
     private ImageView imvIcon;
 
+    //----------------------------------------------------------------------------------
+    // Set the view
+    //----------------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ui_login);
-
-        //added
+        ParseUser.getCurrentUser().logOut();
 
         etUsername = findViewById(R.id.login_username);
         etPassword = findViewById(R.id.login_password);
@@ -44,20 +48,28 @@ public class LoginActivity extends AppCompatActivity {
         btnSignIn = findViewById(R.id.signin_btn);
         btnSignUp = findViewById(R.id.btn_SignUp);
 
-
-
+        //----------------------------------------------------------------------------------
+        // Listen for a click on the Sign In Button
+        //----------------------------------------------------------------------------------
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
-                //TODO: Replace with Login func
-                login(username, password);
-                goMainActivity();
+
+                Log.d("LOGIN", "Info: " + username + " " + password);
+
+                if (username.length() == 0 || password.length() == 0) {
+                    Toast.makeText(LoginActivity.this, "Fields cannot be left blank", Toast.LENGTH_SHORT).show();
+                } else {
+                    login(username, password);
+                }
             }
         });
 
-
+        //----------------------------------------------------------------------------------
+        // Listen for a click on the Sign Up Button
+        //----------------------------------------------------------------------------------
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,6 +79,10 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    //----------------------------------------------------------------------------------
+    // Functionality for the Sign Up Button
+    // Takes user to the User Registration Activity to register
+    //----------------------------------------------------------------------------------
     private void goUserRegistration() {
         Intent i = new Intent(this, UserRegistrationActivity.class);
         startActivity(i);
@@ -74,54 +90,39 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-        //Function to validate user
-        private void login(String user, String password) {
+    //----------------------------------------------------------------------------------
+    // Functionality for the Sign In Button
+    // This function logs in the the user
+    // This function validates the user credentials
+    //----------------------------------------------------------------------------------
+    private void login(String user, String password) {
 
-            //Query to check user input against object (username)
-            ParseQuery<ParseObject> userQuery = ParseQuery.getQuery("Customer");
-            userQuery.whereEqualTo("cus_username", password);
-            //Query to check user input against object (password)
-            ParseQuery<ParseObject> pwordQuery = ParseQuery.getQuery("Customer");
-            pwordQuery.whereEqualTo("cus_password", password);
-
-            //Do compound query to validate both username AND password for a specific object
-            List<ParseQuery<ParseObject>> queries = new ArrayList<>();
-            queries.add(userQuery);
-            queries.add(pwordQuery);
-            ParseQuery<ParseObject> mainQuery = ParseQuery.or(queries);
-            mainQuery.findInBackground(new FindCallback<ParseObject>() {
-                public void done(List<ParseObject> results, ParseException e) {
-                    if (e == null) {
-                        Log.d("users", "Retrieved " + results.size() + " users");
-                        goMainActivity();
-
-                    } else {
-                        Log.d("users", "Error: " + e.getMessage());
-                        Toast.makeText(LoginActivity.this, "Invalid user credentials", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        }
-
-
-    /*private void login( String user,final String password) {
-
-        ParseUser.logInInBackground(user, password, new LogInCallback() {
+        //Query to check user input against object (username)
+        ParseQuery<ParseObject> userQuery = ParseQuery.getQuery("Customer");
+        userQuery.whereEqualTo("cus_username", user);
+        userQuery.whereEqualTo("cus_password", password);
+        userQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
-            public void done(ParseUser user, ParseException e) {
-                if (e != null) {
-                    Log.e("ERROR", "Issue w Login");
-                    e.printStackTrace();
-                    return;
+            public void done(List<ParseObject> objects, ParseException e) {
+
+                Log.d("TAG", "Amount:" + objects.size());
+                if (objects.size() != 0) {
+                    Log.d("users", "Retrieved " + objects.get(0).get("cus_username"));
+
+                    Log.d("users", "Retrieved " + objects.size() + " users");
+                    goMainActivity();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Invalid user credentials", Toast.LENGTH_SHORT).show();
                 }
-                //TODO:navigate to new activity if the sign in succeeds
-                Log.d("WORKING", "It's working");
-                goMainActivity();
             }
         });
-    }*/
+    }
 
-    private void  goMainActivity(){
+    //----------------------------------------------------------------------------------
+    // This function takes the user to the Main Activity after they were
+    // successfully logged in
+    //----------------------------------------------------------------------------------
+    private void goMainActivity() {
         Log.d(LOGGED, "logging in");
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);

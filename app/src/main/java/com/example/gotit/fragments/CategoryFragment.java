@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -38,14 +39,17 @@ import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
-
+//----------------------------------------------------------------------------------
+//  Fragment that allows the Customer to choose what type of products they
+//  want to see or see the stores
+//----------------------------------------------------------------------------------
 @TargetApi(11)
 public class CategoryFragment extends Fragment {
 
     private final String CREATE_POST = "CREATE_POST";
     private final String POST = "POST";
     private final String ERROR = "ERROR";
-    private EditText etCaption;
+    private TextView title;
     private ImageView imagePost;
     private Button btnFood;
     private Button btnElectronics;
@@ -60,12 +64,18 @@ public class CategoryFragment extends Fragment {
     private String photoFileName = "photo.jpg";
     private File photoFile;
 
+
+    //----------------------------------------------------------------------------------
     // The onCreateView method is called when Fragment should create its View object hierarchy,
     // either dynamically or via XML menu_top_nav inflation.
+    //----------------------------------------------------------------------------------
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_category, container, false);
+
+        title = view.findViewById(R.id.pageTitle);
+        title.setText("Welcome to Got It!");
 
         btnFood = view.findViewById(R.id.food_btn);
         btnElectronics = view.findViewById(R.id.electronics_btn);
@@ -73,16 +83,22 @@ public class CategoryFragment extends Fragment {
         btnPersonalCare = view.findViewById(R.id.personalCare_btn);
         browse = view.findViewById(R.id.browse_btn);
 
+        //----------------------------------------------------------------------------------
+        // Listen for click on the Browse Button
+        //----------------------------------------------------------------------------------
         browse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.flContainer, new FeedFragment());
+                fragmentTransaction.replace(R.id.flContainer, new ListStoresFragment());
                 fragmentTransaction.addToBackStack(FEED);
                 fragmentTransaction.commit();
             }
         });
 
+        //----------------------------------------------------------------------------------
+        // Listen for click on the Electrics Button
+        //----------------------------------------------------------------------------------
         btnElectronics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,16 +112,14 @@ public class CategoryFragment extends Fragment {
         return view;
     }
 
+    //----------------------------------------------------------------------------------
     // This event is triggered soon after onCreateView().
     // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
+    //----------------------------------------------------------------------------------
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-
-
-
+        title.setText("Welcome to Got It!");
 
 
     }

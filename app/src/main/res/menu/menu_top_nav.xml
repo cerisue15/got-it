@@ -4,12 +4,12 @@
 
     <item
         android:id="@+id/action_search"
-        android:icon="@drawable/ic_search_black_24dp"
+        android:icon="@drawable/ic_search"
         android:title="Search"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_shopcart"
-        android:icon="@drawable/ic_shopping_cart_black_24dp"
+        android:icon="@drawable/ic_shopping_cart"
         android:title="Shopping Cart"
         app:showAsAction="ifRoom" />
 

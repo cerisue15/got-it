@@ -5,6 +5,9 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+//----------------------------------------------------------------------------------
+//  Creating an object for a Parse User
+//----------------------------------------------------------------------------------
 @ParseClassName("User")
 public class User extends ParseObject{
 
