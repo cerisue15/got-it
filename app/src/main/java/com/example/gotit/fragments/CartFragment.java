@@ -1,7 +1,6 @@
 package com.example.gotit.fragments;
 
 import android.os.Bundle;
-import android.service.autofill.FillEventHistory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,14 +9,13 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.gotit.MainActivity;
+import com.example.gotit.CartProductsAdapter;
+import com.example.gotit.Product;
+import com.example.gotit.ProductsAdapter;
 import com.example.gotit.R;
-import com.example.gotit.Store;
-import com.example.gotit.StoresAdapter;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -26,19 +24,24 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-//----------------------------------------------------------------------------------
-//  The activity that allows a user to Register as a customer
-//----------------------------------------------------------------------------------
-public class ListStoresFragment extends Fragment {
+public class CartFragment extends Fragment {
 
     private RecyclerView rviewPosts;
     protected final String FEED = "FEED";
     protected final String ERROR = "ERROR";
-    protected StoresAdapter adapter;
-    protected List<Store> mStorePosts;
+    protected CartProductsAdapter adapter;
+    protected List<Product> mProductPosts;
+    private String storeID;
     private TextView title;
     private ParseObject customerCart;
 
+    public CartFragment(ParseObject cart){
+        customerCart = cart;
+    }
+
+    public void setStoreId(String id){
+        storeID = id;
+    }
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
     // either dynamically or via XML layout inflation.
@@ -53,12 +56,13 @@ public class ListStoresFragment extends Fragment {
     // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
         rviewPosts = view.findViewById(R.id.rviewPosts);
 
         //create data source
-        mStorePosts = new ArrayList<>();
+        mProductPosts = new ArrayList<>();
         //create adapter
-        adapter = new StoresAdapter(getContext(), mStorePosts , customerCart);
+        adapter = new CartProductsAdapter(getContext(), mProductPosts, customerCart);
         //set adapter on the recycler view
         rviewPosts.setAdapter(adapter);
         //set the layout manger on the recycler view
@@ -69,18 +73,22 @@ public class ListStoresFragment extends Fragment {
 
     protected void queryPosts() {
 
-        ParseQuery<Store> storeQuery = new ParseQuery<Store>(Store.class);
-        storeQuery.setLimit(20);
-        //postQuery.addDescendingOrder(Post.KEY_CREATED_AT);
-        storeQuery.findInBackground(new FindCallback<Store>() {
+        Log.d("STORE", "ID = " + storeID);
+
+        ParseQuery<Product> productQuery = new ParseQuery<Product>(Product.class);
+        productQuery.setLimit(20);
+        ParseObject obj = ParseObject.createWithoutData("Cart",customerCart.getObjectId()); // this pointer object class name and pointer value
+        productQuery.whereEqualTo("cart_id", obj); // this pointer object and parse object
+        //productQuery.addDescendingOrder(Post.KEY_CREATED_AT);
+        productQuery.findInBackground(new FindCallback<Product>() {
             @Override
-            public void done(List<Store> stores, ParseException e) {
+            public void done(List<Product> products, ParseException e) {
                 if (e != null){
                     Log.e(ERROR, "Error with Query");
                     e.printStackTrace();
                     return;
                 }
-                mStorePosts.addAll(stores);
+                mProductPosts.addAll(products);
                 adapter.notifyDataSetChanged();
                 /*
                 for (int i=0; i<stores.size(); i++) {
@@ -92,11 +100,6 @@ public class ListStoresFragment extends Fragment {
             }
         });
     }
-
-    public ListStoresFragment (ParseObject cart){
-        customerCart=cart;
-    }
-
 
 }
 

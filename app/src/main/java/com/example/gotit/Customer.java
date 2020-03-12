@@ -49,6 +49,8 @@ public class Customer extends ParseObject {
         public String getPassword(){ return getString(KEY_PASSWORD); }
         public void setPassword(String password){ put(KEY_PASSWORD, password); }
 
+
+
     /*
     public String getPhonenum(){ return getString(KEY_PHONENUM); }
     public void setPhonenum(String phonenum){ put(KEY_PHONENUM, phonenum); }
