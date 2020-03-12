@@ -21,8 +21,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
 
+import com.example.gotit.fragments.CartFragment;
 import com.example.gotit.fragments.CategoryFragment;
 import com.example.gotit.fragments.ListStoresFragment;
+import com.parse.ParseObject;
 //import com.example.gotit.fragments.ProfileFragment;
 
 //----------------------------------------------------------------------------------
@@ -33,10 +35,12 @@ public class MainActivity extends AppCompatActivity {
 
     private final String WHERE = "WHERE";
     private final String CATEGORY = "CATEGORY";
+    private final String CART = "CART";
     private final FragmentManager fragmentManager = getSupportFragmentManager();
     private ImageView back;
     private Boolean home = false;
     private DrawerLayout drawer;
+    private ParseObject cart;
 
     //----------------------------------------------------------------------------------
     // Sets the view
@@ -51,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
         ImageView back = findViewById(R.id.back_btn);
         setSupportActionBar(toolbar);
 
+        ParseApplication application=(ParseApplication) getApplication();
+        cart = application.getCart();
+
+        Log.d("cart", "--> "+ cart.getObjectId());
         //----------------------------------------------------------------------------------
         // Create Navigation Drawer
         //----------------------------------------------------------------------------------
@@ -64,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         //----------------------------------------------------------------------------------
         //Set Container for Fragments
         //----------------------------------------------------------------------------------
-        CategoryFragment homeFragment = new CategoryFragment();
+        CategoryFragment homeFragment = new CategoryFragment(cart);
         fragmentManager.beginTransaction()
                 .replace(R.id.flContainer, homeFragment, CATEGORY)
                 .addToBackStack(CATEGORY)
@@ -115,30 +123,32 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        final FragmentManager fragmentManager = getSupportFragmentManager();
-
-        Fragment fragment;
+        Fragment fragment = new CategoryFragment(cart);
 
         switch (item.getItemId()) {
             case R.id.action_search:
                 //TODO: swap fragment here
-                fragment = new CategoryFragment();
                 break;
             case R.id.action_shopcart:
-                fragment = new CategoryFragment();
+                fragment = new CartFragment(cart);
                 break;
-            default: fragment = new CategoryFragment();
+            default:
         }
 
-        fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+        fragmentManager.beginTransaction()
+                .replace(R.id.flContainer, fragment)
+                .addToBackStack(CART)
+                .commit();
 
 
         return true;
         //return super.onOptionsItemSelected(item);
     }
 
+
     public void hideButton(Boolean b){
         home = b;
     }
+
 
 }

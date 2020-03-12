@@ -1,6 +1,8 @@
 package com.example.gotit;
 
+import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +12,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.gotit.fragments.ListStoresFragment;
+import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.SaveCallback;
 
 import java.util.List;
 
@@ -26,9 +28,12 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     private List<Product> products;
     private Boolean favorited = false;
     private final String LISTPRODUCTS = "LISTPRODUCTS";
+    private ParseObject customerCart;
 
-    public ProductsAdapter(Context context, List<Product> products){
+
+    public ProductsAdapter(Context context, List<Product> products, ParseObject cart){
         this.context = context;
+        this.customerCart = cart;
         this.products = products;
     }
 
@@ -38,15 +43,38 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View view = LayoutInflater.from(context).inflate(R.layout.product_post, parent, false);
+
+        customerCart.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.e("ERROR", "Error in signing up user");
+                    e.printStackTrace();
+                    return;
+                }
+            }
+        });
 
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Product product = products.get(position);
+        final Product product = products.get(position);
         holder.bind(product);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Position", "--> "+ product.getProductName());
+                product.put("cart_id", ParseObject.createWithoutData("Cart", customerCart.getObjectId()) );
+                product.saveInBackground();
+
+            }
+        });
+
     }
 
     @Override
@@ -54,25 +82,24 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         return products.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder{
 
         private TextView productName;
         private ImageButton heart_btn;
-        private Button viewProducts_btn;
+        private Button addToCart_btn;
         private TextView tvCaption;
         private ImageView ivImage;
-        private ImageButton btn_Comment;
-        private TextView cnt_comment;
-        private TextView cnt_like;
 
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull final View itemView) {
             super(itemView);
+
+
             productName = itemView.findViewById(R.id.productName);
             tvCaption = itemView.findViewById(R.id.tvCaption);
             ivImage = itemView.findViewById(R.id.ivImage);
             heart_btn = itemView.findViewById(R.id.heart_icon);
-            viewProducts_btn = itemView.findViewById(R.id.addToCart_btn);
+            addToCart_btn = itemView.findViewById(R.id.addToCart_btn);
 
 
             //----------------------------------------------------------------------------------
@@ -80,31 +107,24 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             //----------------------------------------------------------------------------------
             heart_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v){
+                public void onClick(View v) {
 
                     if (favorited == false) {
                         heart_btn.setImageResource(R.drawable.ic_favorite_48dp);
                         favorited = true;
-                    }
-                    else {
+                    } else {
                         heart_btn.setImageResource(R.drawable.ic_favorite_border_48dp);
                         favorited = false;
                     }
                 }
             });
 
-            viewProducts_btn.setOnClickListener(new View.OnClickListener() {
+            addToCart_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view){
-
-                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                    Fragment myFragment = new ListStoresFragment();
-                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, myFragment).addToBackStack(LISTPRODUCTS).commit();
+                public void onClick(View v) {
 
                 }
-
             });
-
 
         }
 
@@ -130,4 +150,5 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         }
 
     }
+
 }

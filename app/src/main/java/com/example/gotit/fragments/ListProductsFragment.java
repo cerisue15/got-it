@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.gotit.Product;
 import com.example.gotit.R;
 import com.example.gotit.ProductsAdapter;
+import com.example.gotit.RecyclerViewClickListener;
 import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
@@ -34,7 +35,7 @@ public class ListProductsFragment extends Fragment {
     protected List<Product> mProductPosts;
     private String storeID;
     private TextView title;
-
+    private ParseObject customerCart;
 
     public void setStoreId(String id){
         storeID = id;
@@ -59,7 +60,7 @@ public class ListProductsFragment extends Fragment {
         //create data source
         mProductPosts = new ArrayList<>();
         //create adapter
-        adapter = new ProductsAdapter(getContext(), mProductPosts);
+        adapter = new ProductsAdapter(getContext(), mProductPosts, customerCart);
         //set adapter on the recycler view
         rviewPosts.setAdapter(adapter);
         //set the layout manger on the recycler view
@@ -96,5 +97,9 @@ public class ListProductsFragment extends Fragment {
 
             }
         });
+    }
+
+    public ListProductsFragment (ParseObject cart){
+        customerCart=cart;
     }
 }

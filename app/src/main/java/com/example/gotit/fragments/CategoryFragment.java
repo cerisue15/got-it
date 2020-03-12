@@ -15,27 +15,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.gotit.MainActivity;
 import com.example.gotit.R;
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseFile;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
-import com.parse.SaveCallback;
+import com.parse.ParseObject;
 
 import java.io.File;
-import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -58,6 +49,7 @@ public class CategoryFragment extends Fragment {
     private Button browse;
     private Button back;
     protected final String FEED = "FEED";
+    private ParseObject customerCart;
 
     //changed these below from public to private
     private final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
@@ -90,7 +82,7 @@ public class CategoryFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.flContainer, new ListStoresFragment());
+                fragmentTransaction.replace(R.id.flContainer, new ListStoresFragment(customerCart));
                 fragmentTransaction.addToBackStack(FEED);
                 fragmentTransaction.commit();
             }
@@ -103,7 +95,7 @@ public class CategoryFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.flContainer, new CategoryFragment());
+                fragmentTransaction.replace(R.id.flContainer, new CategoryFragment(customerCart));
                 fragmentTransaction.commit();
             }
         });
@@ -181,6 +173,10 @@ public class CategoryFragment extends Fragment {
                 Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    public CategoryFragment (ParseObject cart){
+        customerCart=cart;
     }
 
 }
