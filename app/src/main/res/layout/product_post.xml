@@ -56,7 +56,7 @@
         android:id="@+id/tvCaption"
         android:layout_width="106dp"
         android:layout_height="32dp"
-        android:text="time"
+        android:text="cost"
         android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
         android:textColor="@color/colorPara_btn"
         android:textSize="18dp"
@@ -82,7 +82,7 @@
         app:srcCompat="@drawable/ic_favorite_border_48dp" />
 
     <Button
-        android:id="@+id/addToCart_btn"
+        android:id="@+id/checkout_btn"
         android:layout_width="128dp"
         android:layout_height="42dp"
         android:background="@color/colorBtn_back"

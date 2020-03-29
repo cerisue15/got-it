@@ -1,6 +1,7 @@
 package com.example.gotit;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,10 +33,10 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.ViewHolder
     private List<Store> stores;
     private Boolean favorited = false;
     private final String LISTPRODUCTS = "LISTPRODUCTS";
-    private ParseObject cart;
+    private Cart cart;
 
 
-    public StoresAdapter(Context context, List<Store> stores, ParseObject customerCart) {
+    public StoresAdapter(Context context, List<Store> stores, Cart customerCart) {
         this.context = context;
         this.stores = stores;
         this.cart = customerCart;
@@ -85,7 +86,7 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.ViewHolder
             tvCaption = itemView.findViewById(R.id.tvCaption);
             ivImage = itemView.findViewById(R.id.ivImage);
             heart_btn = itemView.findViewById(R.id.heart_icon);
-            viewProducts_btn = itemView.findViewById(R.id.addToCart_btn);
+            viewProducts_btn = itemView.findViewById(R.id.viewProducts_btn);
 
 
             //----------------------------------------------------------------------------------
@@ -123,6 +124,7 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.ViewHolder
             viewProducts_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Log.d("button", "pressing button");
 
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     ListProductsFragment prodFrag = new ListProductsFragment(cart);

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rviewPosts"
+        android:layout_width="375dp"
+        android:layout_height="428dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="25dp"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.436" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="376dp"
+        android:layout_height="69dp"
+        android:layout_marginBottom="44dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/subtotal"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:text="Sub Total:"
+            android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+            android:textColor="@color/colorHead_Subhead"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:fontFamily="@font/convergence"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.062"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.487" />
+
+        <TextView
+            android:id="@+id/tvCaption"
+            android:layout_width="86dp"
+            android:layout_height="30dp"
+            android:gravity="center|left"
+            android:text="cost"
+            android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+            android:textColor="@color/colorPara_btn"
+            android:textSize="18dp"
+            app:fontFamily="@font/convergence"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/subtotal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.486" />
+
+        <Button
+            android:id="@+id/checkout_btn"
+            android:layout_width="128dp"
+            android:layout_height="42dp"
+            android:background="@color/colorBtn_back"
+            android:text="Checkout"
+            android:textColor="@color/colorPara_btn"
+            android:textSize="14sp"
+            app:fontFamily="@font/convergence"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvCaption"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

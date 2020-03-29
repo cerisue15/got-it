@@ -1,8 +1,6 @@
 package com.example.gotit;
 
-import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseObject;
-import com.parse.SaveCallback;
 
 import java.util.List;
 
@@ -28,10 +23,10 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     private List<Product> products;
     private Boolean favorited = false;
     private final String LISTPRODUCTS = "LISTPRODUCTS";
-    private ParseObject customerCart;
+    private Cart customerCart;
 
 
-    public ProductsAdapter(Context context, List<Product> products, ParseObject cart){
+    public ProductsAdapter(Context context, List<Product> products, Cart cart){
         this.context = context;
         this.customerCart = cart;
         this.products = products;
@@ -46,7 +41,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
 
         View view = LayoutInflater.from(context).inflate(R.layout.product_post, parent, false);
 
-        customerCart.saveInBackground(new SaveCallback() {
+        /*customerCart.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 if (e != null) {
@@ -56,6 +51,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
                 }
             }
         });
+        */
 
         return new ViewHolder(view);
     }
@@ -68,9 +64,9 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Position", "--> "+ product.getProductName());
+                /*Log.d("Position", "--> "+ product.getProductName());
                 product.put("cart_id", ParseObject.createWithoutData("Cart", customerCart.getObjectId()) );
-                product.saveInBackground();
+                product.saveInBackground();*/
 
             }
         });
@@ -99,7 +95,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             tvCaption = itemView.findViewById(R.id.tvCaption);
             ivImage = itemView.findViewById(R.id.ivImage);
             heart_btn = itemView.findViewById(R.id.heart_icon);
-            addToCart_btn = itemView.findViewById(R.id.addToCart_btn);
+            addToCart_btn = itemView.findViewById(R.id.checkout_btn);
 
 
             //----------------------------------------------------------------------------------
@@ -119,26 +115,29 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
                 }
             });
 
-            addToCart_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-
         }
 
         //----------------------------------------------------------------------------------
         //  Put store on Recycler View
         //----------------------------------------------------------------------------------
-        public void bind(Product product){
+        public void bind(final Product product){
 
             productName.setText(product.getProductName());
             ParseFile image = product.getImage();
             if(image != null){
                 Glide.with(context).load(image.getUrl()).into(ivImage);
             }
-            //tvCaption.setText(store.getCaption());
+            tvCaption.setText("$"+product.getProductPrice().toString());
+
+            addToCart_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    customerCart.addProductToCart(product);
+                    //product.put("cart_id", ParseObject.createWithoutData("Cart", customerCart.getObjectId()) );
+                    product.saveInBackground();
+                }
+            });
+
             /*ParseFile image = post.getImage();
             if(image != null){
                 Glide.with(context).load(image.getUrl()).into(ivImage);

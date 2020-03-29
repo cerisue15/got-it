@@ -11,9 +11,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.gotit.fragments.CartFragment;
+import com.example.gotit.fragments.ListStoresFragment;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -28,11 +34,11 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
     private List<Product> products;
     private Boolean favorited = false;
     private final String LISTPRODUCTS = "LISTPRODUCTS";
-    private ParseObject customerCart;
+    private Cart customerCart;
     private int pos=0;
 
 
-    public CartProductsAdapter(Context context, List<Product> products, ParseObject cart){
+    public CartProductsAdapter(Context context, List<Product> products, Cart cart){
             this.context = context;
             this.customerCart = cart;
             this.products = products;
@@ -47,7 +53,7 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
 
             View view = LayoutInflater.from(context).inflate(R.layout.cartproduct_post, parent, false);
 
-            customerCart.saveInBackground(new SaveCallback() {
+            /*customerCart.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
                     if (e != null) {
@@ -57,6 +63,7 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
                     }
                 }
             });
+             */
 
             return new ViewHolder(view);
     }
@@ -65,7 +72,7 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Product product = products.get(position);
         pos=position;
-        holder.bind(product);
+        holder.bind(product, holder);
 
 
 
@@ -83,7 +90,6 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
         private ImageButton minus_quantity;
         private ImageButton delete;
         private TextView tvPrice;
-        private TextView quantity;
         private ImageView ivImage;
         private TextView tvCnt;
         int count=1;
@@ -104,23 +110,6 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
             //----------------------------------------------------------------------------------
             //  Allows a user to favorite a store
             //----------------------------------------------------------------------------------
-
-
-            add_quantity.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    count++;
-                    tvCnt.setText("" + count);
-                }
-            });
-
-            minus_quantity.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    count--;
-                    tvCnt.setText("" + count);
-                }
-            });
 
             /*delete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -151,13 +140,75 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
         //----------------------------------------------------------------------------------
         //  Put store on Recycler View
         //----------------------------------------------------------------------------------
-        public void bind(Product product) {
+        public void bind(final Product product, @NonNull final ViewHolder holder ) {
 
             productName.setText(product.getProductName());
+            tvPrice.setText("$"+product.getProductPrice().toString());
+
             ParseFile image = product.getImage();
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);
             }
+
+            tvCnt.setText("" + product.getcartQuantity());
+
+            add_quantity.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("PLUS", "--->" + count);
+
+                    count = (Integer)product.getcartQuantity();
+                    count++;
+                    product.setcartQuantity(count);
+                    tvCnt.setText("" + count);
+
+                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                    Fragment myFragment = new CartFragment(customerCart);
+                    activity.getSupportFragmentManager()
+                            .beginTransaction().replace(R.id.flContainer, myFragment)
+                            .commit();
+
+                }
+            });
+
+            minus_quantity.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if ((Integer)product.getcartQuantity()>0){
+
+                        Log.d("MINUS", "--->" + count);
+
+                        count = (Integer)product.getcartQuantity();
+                        count--;
+                        product.setcartQuantity(count);
+                        tvCnt.setText("" + count);
+
+                        AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                        Fragment myFragment = new CartFragment(customerCart);
+                        activity.getSupportFragmentManager()
+                                .beginTransaction().replace(R.id.flContainer, myFragment)
+                                .commit();
+
+                    }
+                }
+            });
+
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    customerCart.deleteProductFromCart(product);
+                    removeAt(getAdapterPosition());
+
+                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                    Fragment myFragment = new CartFragment(customerCart);
+                    activity.getSupportFragmentManager()
+                            .beginTransaction().replace(R.id.flContainer, myFragment)
+                            .commit();
+                    Log.d("DELETE", "--> deleted");
+
+
+                }
+            });
 
             //tvCaption.setText(store.getCaption());
             /*ParseFile image = post.getImage();
@@ -166,6 +217,12 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
                }*/
             //Log.d("COMMENT", "Comments: " + post.getCommentCount());
 
+        }
+
+        public void removeAt(int position) {
+            products.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, products.size());
         }
     }
 }

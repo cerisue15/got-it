@@ -40,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageView back;
     private Boolean home = false;
     private DrawerLayout drawer;
-    private ParseObject cart;
+    private Cart cart = new Cart();
+    //private ParseObject cart;
 
     //----------------------------------------------------------------------------------
     // Sets the view
@@ -55,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
         ImageView back = findViewById(R.id.back_btn);
         setSupportActionBar(toolbar);
 
-        ParseApplication application=(ParseApplication) getApplication();
-        cart = application.getCart();
+        //ParseApplication application=(ParseApplication) getApplication();
+        //cart = application.getCart();
 
         Log.d("cart", "--> "+ cart.getObjectId());
         //----------------------------------------------------------------------------------
@@ -122,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
     //----------------------------------------------------------------------------------
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
 
         Fragment fragment = new CategoryFragment(cart);
 

@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gotit.Cart;
 import com.example.gotit.MainActivity;
 import com.example.gotit.R;
 import com.example.gotit.Store;
@@ -37,7 +38,7 @@ public class ListStoresFragment extends Fragment {
     protected StoresAdapter adapter;
     protected List<Store> mStorePosts;
     private TextView title;
-    private ParseObject customerCart;
+    private Cart customerCart;
 
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
@@ -93,7 +94,7 @@ public class ListStoresFragment extends Fragment {
         });
     }
 
-    public ListStoresFragment (ParseObject cart){
+    public ListStoresFragment (Cart cart){
         customerCart=cart;
     }
 

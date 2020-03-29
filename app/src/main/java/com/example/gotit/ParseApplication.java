@@ -13,7 +13,7 @@ import com.parse.SaveCallback;
 //----------------------------------------------------------------------------------
 public class ParseApplication extends Application{
 
-    private ParseObject cart;
+    //private ParseObject cart;
 
     @Override
     public void onCreate() {
@@ -36,7 +36,7 @@ public class ParseApplication extends Application{
                 //.clientBuilder(builder)
                 .server("http://got-it-famu.herokuapp.com/parse").build());
 
-        cart = ParseObject.create("Cart");
+        /*cart = ParseObject.create("Cart");
         cart.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -47,12 +47,12 @@ public class ParseApplication extends Application{
                 }
             }
         });
-        Log.d("cart", "--> "+ cart.getObjectId());
+        Log.d("cart", "--> "+ cart.getObjectId());*/
     }
 
-    public ParseObject getCart() {
+    /*public ParseObject getCart() {
 
         return cart;
-    }
+    }*/
 
 }

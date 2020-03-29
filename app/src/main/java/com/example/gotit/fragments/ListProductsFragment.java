@@ -12,10 +12,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gotit.Cart;
 import com.example.gotit.Product;
 import com.example.gotit.R;
 import com.example.gotit.ProductsAdapter;
-import com.example.gotit.RecyclerViewClickListener;
 import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
@@ -28,14 +28,17 @@ import java.util.List;
 
 public class ListProductsFragment extends Fragment {
 
+    private Cart customerCart;
     private RecyclerView rviewPosts;
     protected final String FEED = "FEED";
     protected final String ERROR = "ERROR";
-    protected ProductsAdapter adapter;
     protected List<Product> mProductPosts;
+    protected ProductsAdapter adapter;
     private String storeID;
     private TextView title;
-    private ParseObject customerCart;
+
+
+
 
     public void setStoreId(String id){
         storeID = id;
@@ -99,7 +102,7 @@ public class ListProductsFragment extends Fragment {
         });
     }
 
-    public ListProductsFragment (ParseObject cart){
+    public ListProductsFragment (Cart cart){
         customerCart=cart;
     }
 }

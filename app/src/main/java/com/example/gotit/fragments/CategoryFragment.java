@@ -23,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.gotit.Cart;
 import com.example.gotit.R;
 import com.parse.ParseObject;
 
@@ -49,7 +50,7 @@ public class CategoryFragment extends Fragment {
     private Button browse;
     private Button back;
     protected final String FEED = "FEED";
-    private ParseObject customerCart;
+    private Cart customerCart;
 
     //changed these below from public to private
     private final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
@@ -175,7 +176,7 @@ public class CategoryFragment extends Fragment {
         }
     }
 
-    public CategoryFragment (ParseObject cart){
+    public CategoryFragment (Cart cart){
         customerCart=cart;
     }
 

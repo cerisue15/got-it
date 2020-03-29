@@ -9,6 +9,8 @@ import com.example.gotit.Store;
 @ParseClassName("Product")
 public class Product extends ParseObject {
 
+    private Number cartQuantity = 1;
+
     public static final String KEY_PRODUCT = "objectId";
     public static final String KEY_BRAND = "bra_id";
     public static final String KEY_STORE = "sto_id";
@@ -47,5 +49,8 @@ public class Product extends ParseObject {
 
     public ParseFile getImage() { return getParseFile(KEY_IMAGE); }
     public void setImage(ParseFile image){ put(KEY_IMAGE, image); }
+
+    public Number getcartQuantity() { return cartQuantity; }
+    public void setcartQuantity(Number count){ cartQuantity = count; }
 
 }
