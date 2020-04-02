@@ -1,4 +1,4 @@
-package com.example.gotit;
+package com.example.gotit.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,6 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.gotit.ParseClasses.Cart;
+import com.example.gotit.ParseClasses.Product;
+import com.example.gotit.R;
 import com.parse.ParseFile;
 
 import java.util.List;
@@ -40,19 +43,6 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(context).inflate(R.layout.product_post, parent, false);
-
-        /*customerCart.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e != null) {
-                    Log.e("ERROR", "Error in signing up user");
-                    e.printStackTrace();
-                    return;
-                }
-            }
-        });
-        */
-
         return new ViewHolder(view);
     }
 
@@ -60,17 +50,6 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Product product = products.get(position);
         holder.bind(product);
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /*Log.d("Position", "--> "+ product.getProductName());
-                product.put("cart_id", ParseObject.createWithoutData("Cart", customerCart.getObjectId()) );
-                product.saveInBackground();*/
-
-            }
-        });
-
     }
 
     @Override
@@ -95,7 +74,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             tvCaption = itemView.findViewById(R.id.tvCaption);
             ivImage = itemView.findViewById(R.id.ivImage);
             heart_btn = itemView.findViewById(R.id.heart_icon);
-            addToCart_btn = itemView.findViewById(R.id.checkout_btn);
+            addToCart_btn = itemView.findViewById(R.id.addToCart_btn);
 
 
             //----------------------------------------------------------------------------------
@@ -137,14 +116,6 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
                     product.saveInBackground();
                 }
             });
-
-            /*ParseFile image = post.getImage();
-            if(image != null){
-                Glide.with(context).load(image.getUrl()).into(ivImage);
-            }*/
-            //Log.d("COMMENT", "Comments: " + post.getCommentCount());
-
-
 
         }
 

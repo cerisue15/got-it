@@ -1,26 +1,29 @@
-package com.example.gotit;
+package com.example.gotit.ParseClasses;
 
 import android.util.Log;
 
-import com.parse.ParseClassName;
-import com.parse.ParseObject;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@ParseClassName("Cart")
-public class Cart extends ParseObject {
+public class Cart{
 
     public static final String KEY_NAME = "name";
     private Map<Integer, String> hm = new HashMap<>();
     List<Product> products = new ArrayList<>();
     private Integer integ=0;
+    private String customerId;
 
 
-    public Cart(){super();}
+    public Cart(String c){
+        super();
+        this.customerId=c;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
 
     public void addProductToCart(Product product){
         Log.d("HM", "--> " + hm.containsValue(product.getProductName()));

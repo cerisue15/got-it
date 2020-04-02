@@ -1,13 +1,22 @@
-package com.example.gotit;
+package com.example.gotit.ParseClasses;
 
+import android.util.Log;
+
+import com.parse.FindCallback;
 import com.parse.ParseClassName;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+
+import java.util.List;
+
+import static java.util.jar.Pack200.Packer.ERROR;
 
 //----------------------------------------------------------------------------------
 // Creating an object for each customer
@@ -25,13 +34,10 @@ public class Customer extends ParseObject {
         //public static final String KEY_LOCATION = "location";
         public static final String KEY_IMAGE ="image";
 
-        public Customer() {super();}
+        public Customer() { super(); }
 
-        public ParseUser getCustomerId() {
-                return getParseUser(KEY_CUSTOMER);
-        }
-        public void setCustomerId(ParseUser customerId){
-                put(KEY_CUSTOMER, customerId);
+        public String getCustomerId() {
+                return getObjectId();
         }
 
         public String getFirstName(){ return getString(KEY_FIRSTNAME); }
@@ -49,17 +55,4 @@ public class Customer extends ParseObject {
         public String getPassword(){ return getString(KEY_PASSWORD); }
         public void setPassword(String password){ put(KEY_PASSWORD, password); }
 
-
-
-    /*
-    public String getPhonenum(){ return getString(KEY_PHONENUM); }
-    public void setPhonenum(String phonenum){ put(KEY_PHONENUM, phonenum); }
-
-    public ParseFile getImage() {
-        return getParseFile(KEY_IMAGE);
-    }
-    public void setImage(ParseFile image){
-        put(KEY_IMAGE, image);
-    }
-    */
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/post"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
+    android:layout_height="200dp"
     android:layout_margin="0dp"
     android:background="@color/colorPrimary"
     android:orientation="vertical">
@@ -12,8 +12,8 @@
 
     <ImageView
         android:id="@+id/ivImage"
-        android:layout_width="251dp"
-        android:layout_height="200dp"
+        android:layout_width="158dp"
+        android:layout_height="142dp"
         android:layout_marginTop="28dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -29,6 +29,7 @@
         android:id="@+id/storeName"
         android:layout_width="160dp"
         android:layout_height="63dp"
+        android:layout_marginStart="168dp"
         android:text="Name"
         android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
         android:textColor="@color/colorHead_Subhead"
@@ -36,9 +37,11 @@
         android:textStyle="bold"
         app:fontFamily="@font/convergence"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.983" />
+        app:layout_constraintVertical_bias="0.204" />
 
     <View
         android:id="@+id/bar"
@@ -50,12 +53,13 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.994" />
 
     <TextView
         android:id="@+id/tvCaption"
         android:layout_width="88dp"
         android:layout_height="29dp"
+        android:layout_marginBottom="48dp"
         android:text="time"
         android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
         android:textColor="@color/colorPara_btn"
@@ -63,10 +67,10 @@
         app:fontFamily="@font/convergence"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.616"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/storeName"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.739" />
 
     <ImageButton
         android:id="@+id/heart_icon"
@@ -75,10 +79,10 @@
         android:background="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.948"
+        app:layout_constraintHorizontal_bias="0.955"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.111"
+        app:layout_constraintVertical_bias="0.184"
         app:srcCompat="@drawable/ic_favorite_border_48dp" />
 
     <Button
@@ -92,9 +96,9 @@
         app:fontFamily="@font/convergence"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.943"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.903" />
+        app:layout_constraintVertical_bias="0.898" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

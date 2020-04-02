@@ -10,7 +10,7 @@
     android:paddingRight="16dp"
     android:paddingBottom="16dp"
     android:background="#F7FDDD"
-    tools:context=".UserRegistrationActivity">
+    tools:context=".Activities.UserRegistrationActivity">
 
     <EditText
         android:id="@+id/userReg_fname"
@@ -132,7 +132,7 @@
         app:layout_constraintVertical_bias="0.881" />
 
     <TextView
-        android:id="@+id/Label"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sign Up"

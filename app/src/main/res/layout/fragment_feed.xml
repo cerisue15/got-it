@@ -23,4 +23,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
+    <TextView
+        android:id="@+id/pageTitle"
+        android:layout_width="240dp"
+        android:layout_height="65dp"
+        android:gravity="center"
+        android:text="Name"
+        android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+        android:textColor="@color/colorHead_Subhead"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:fontFamily="@font/convergence"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.009" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

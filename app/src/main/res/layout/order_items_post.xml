@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/post"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:layout_margin="0dp"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/label2"
+        android:layout_width="154dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="128dp"
+        android:layout_marginBottom="14dp"
+        android:text="Quantity Purchased:"
+        android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+        android:textColor="@color/colorPara_btn"
+        android:textSize="14dp"
+        app:fontFamily="@font/convergence"
+        app:layout_constraintBottom_toTopOf="@+id/bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.727"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.925" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="75dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="48dp"
+        android:text="time"
+        android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+        android:textColor="@color/colorPara_btn"
+        android:textSize="14dp"
+        app:fontFamily="@font/convergence"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/tvDate"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.905" />
+
+    <TextView
+        android:id="@+id/quantity"
+        android:layout_width="40dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="128dp"
+        android:layout_marginBottom="14dp"
+        android:text="time"
+        android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+        android:textColor="@color/colorPara_btn"
+        android:textSize="14dp"
+        app:fontFamily="@font/convergence"
+        app:layout_constraintBottom_toTopOf="@+id/bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.919"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="126dp"
+        android:layout_height="105dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="40dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.094"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:srcCompat="@tools:sample/backgrounds/scenic[15]"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/productName"
+        android:layout_width="195dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="168dp"
+        android:gravity="center"
+        android:text="Name"
+        android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+        android:textColor="@color/colorHead_Subhead"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:fontFamily="@font/convergence"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.395"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.135" />
+
+    <View
+        android:id="@+id/bar"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/colorHead_Subhead"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.994" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="131dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="48dp"
+        android:text="Price per item:"
+        android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+        android:textColor="@color/colorPara_btn"
+        android:textSize="14dp"
+        app:fontFamily="@font/convergence"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.667"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.909" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.example.gotit;
+package com.example.gotit.ParseClasses;
 
 import com.parse.ParseClassName;
 import com.parse.ParseFile;

@@ -1,4 +1,4 @@
-package com.example.gotit;
+package com.example.gotit.Adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,26 +6,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.gotit.fragments.CartFragment;
-import com.example.gotit.fragments.ListStoresFragment;
-import com.parse.FindCallback;
-import com.parse.ParseException;
+import com.example.gotit.ParseClasses.Cart;
+import com.example.gotit.Fragments.CartFragment;
+import com.example.gotit.ParseClasses.Product;
+import com.example.gotit.R;
 import com.parse.ParseFile;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.SaveCallback;
 
 import java.util.List;
 public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapter.ViewHolder>{

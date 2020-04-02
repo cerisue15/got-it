@@ -1,4 +1,4 @@
-package com.example.gotit;
+package com.example.gotit.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gotit.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -32,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
     private TextView btnSignUp;
     private Button btnSignIn;
     private ImageView imvIcon;
-
     //----------------------------------------------------------------------------------
     // Set the view
     //----------------------------------------------------------------------------------
@@ -110,7 +110,10 @@ public class LoginActivity extends AppCompatActivity {
                     Log.d("users", "Retrieved " + objects.get(0).get("cus_username"));
 
                     Log.d("users", "Retrieved " + objects.size() + " users");
-                    goMainActivity();
+
+                    String Id = objects.get(0).getObjectId();
+
+                    goMainActivity(Id);
                 } else {
                     Toast.makeText(LoginActivity.this, "Invalid user credentials", Toast.LENGTH_SHORT).show();
                 }
@@ -122,11 +125,10 @@ public class LoginActivity extends AppCompatActivity {
     // This function takes the user to the Main Activity after they were
     // successfully logged in
     //----------------------------------------------------------------------------------
-    private void goMainActivity() {
-        Log.d(LOGGED, "logging in");
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
-        Log.d("WORKING", "It's working");
+    private void goMainActivity(String id) {
+        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+        intent.putExtra("customer_ID", id);
+        startActivity(intent);
         finish();
     }
 }

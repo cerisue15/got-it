@@ -1,4 +1,4 @@
-package com.example.gotit;
+package com.example.gotit.Adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -16,7 +16,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.gotit.fragments.ListProductsFragment;
+import com.example.gotit.ParseClasses.Cart;
+import com.example.gotit.Fragments.ListProductsFragment;
+import com.example.gotit.R;
+import com.example.gotit.ParseClasses.Store;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -49,7 +52,6 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.store_post, parent, false);
-
         return new ViewHolder(view);
     }
 
@@ -106,7 +108,6 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.ViewHolder
                 }
             });
 
-
         }
 
         //----------------------------------------------------------------------------------
@@ -115,8 +116,6 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.ViewHolder
         public void bind(final Store store) {
 
             storeName.setText(store.getStoreName());
-            //Log.d("STORE", "store ID : " + store.getStoreId());
-            //tvCaption.setText(store.getCaption());
 
             //----------------------------------------------------------------------------------
             //  View product
@@ -124,15 +123,12 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.ViewHolder
             viewProducts_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.d("button", "pressing button");
-
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     ListProductsFragment prodFrag = new ListProductsFragment(cart);
                     prodFrag.setStoreId(store.getStoreId());
                     Fragment myFragment = prodFrag;
 
                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, myFragment).addToBackStack(LISTPRODUCTS).commit();
-
                 }
 
             });
@@ -152,11 +148,7 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.ViewHolder
                 }
             });
 
-
-
-
         }
-
 
     }
 

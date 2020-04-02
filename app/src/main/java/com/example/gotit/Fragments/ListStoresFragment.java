@@ -1,7 +1,6 @@
-package com.example.gotit.fragments;
+package com.example.gotit.Fragments;
 
 import android.os.Bundle;
-import android.service.autofill.FillEventHistory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,18 +9,15 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.gotit.Cart;
-import com.example.gotit.MainActivity;
+import com.example.gotit.ParseClasses.Cart;
 import com.example.gotit.R;
-import com.example.gotit.Store;
-import com.example.gotit.StoresAdapter;
+import com.example.gotit.ParseClasses.Store;
+import com.example.gotit.Adapters.StoresAdapter;
 import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
@@ -55,6 +51,8 @@ public class ListStoresFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         rviewPosts = view.findViewById(R.id.rviewPosts);
+        title = view.findViewById((R.id.pageTitle));
+        title.setText("Stores");
 
         //create data source
         mStorePosts = new ArrayList<>();

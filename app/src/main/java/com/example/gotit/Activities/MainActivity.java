@@ -1,6 +1,6 @@
-package com.example.gotit;
+package com.example.gotit.Activities;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -15,24 +15,26 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentTransaction;
 
 
-import com.example.gotit.fragments.CartFragment;
-import com.example.gotit.fragments.CategoryFragment;
-import com.example.gotit.fragments.ListStoresFragment;
-import com.parse.ParseObject;
+import com.example.gotit.ParseClasses.Cart;
+import com.example.gotit.R;
+import com.example.gotit.Fragments.CartFragment;
+import com.example.gotit.Fragments.CategoryFragment;
+import com.example.gotit.Fragments.ListOrdersFragment;
+import com.google.android.material.navigation.NavigationView;
 //import com.example.gotit.fragments.ProfileFragment;
 
 //----------------------------------------------------------------------------------
 // The activity that sets up the framework for the app
 // Shows the main page the user gets redirected to
 //----------------------------------------------------------------------------------
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private String customer_id;
+    private static final String LISTORDERS = "LISTORDERS";
     private final String WHERE = "WHERE";
     private final String CATEGORY = "CATEGORY";
     private final String CART = "CART";
@@ -40,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageView back;
     private Boolean home = false;
     private DrawerLayout drawer;
-    private Cart cart = new Cart();
-    //private ParseObject cart;
+    private Cart cart;
+
 
     //----------------------------------------------------------------------------------
     // Sets the view
@@ -49,21 +51,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         ImageView back = findViewById(R.id.back_btn);
         setSupportActionBar(toolbar);
+        customer_id = getIntent().getStringExtra("customer_ID");
+        cart = new Cart(customer_id);
 
-        //ParseApplication application=(ParseApplication) getApplication();
-        //cart = application.getCart();
-
-        Log.d("cart", "--> "+ cart.getObjectId());
         //----------------------------------------------------------------------------------
         // Create Navigation Drawer
         //----------------------------------------------------------------------------------
         drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -91,6 +92,38 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+
+        switch(item.getItemId()){
+
+            case R.id.nav_home:
+                CategoryFragment homeFragment = new CategoryFragment(cart);
+                fragmentManager.beginTransaction()
+                        .replace(R.id.flContainer, homeFragment, CATEGORY)
+                        .addToBackStack(CATEGORY)
+                        .commit();
+                break;
+            case R.id.nav_favorites:
+                break;
+            case R.id.nav_orders:
+
+                ListOrdersFragment ordersFragment = new ListOrdersFragment(customer_id, cart);
+                fragmentManager.beginTransaction()
+                        .replace(R.id.flContainer, ordersFragment, LISTORDERS)
+                        .addToBackStack(CATEGORY)
+                        .commit();
+                break;
+            case R.id.nav_places:
+                break;
+
+        }
+
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     //----------------------------------------------------------------------------------

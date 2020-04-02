@@ -1,4 +1,4 @@
-package com.example.gotit.fragments;
+package com.example.gotit.Fragments;
 
 import android.annotation.TargetApi;
 import androidx.fragment.app.Fragment;
@@ -23,9 +23,8 @@ import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.gotit.Cart;
+import com.example.gotit.ParseClasses.Cart;
 import com.example.gotit.R;
-import com.parse.ParseObject;
 
 import java.io.File;
 

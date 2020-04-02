@@ -1,4 +1,4 @@
-package com.example.gotit.fragments;
+package com.example.gotit.Fragments;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -12,37 +12,29 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.gotit.Cart;
-import com.example.gotit.Product;
+import com.example.gotit.ParseClasses.Cart;
+import com.example.gotit.ParseClasses.Order;
+import com.example.gotit.Adapters.OrdersAdapter;
 import com.example.gotit.R;
-import com.example.gotit.ProductsAdapter;
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListProductsFragment extends Fragment {
+public class ListOrdersFragment extends Fragment {
 
     private Cart customerCart;
     private RecyclerView rviewPosts;
     protected final String FEED = "FEED";
     protected final String ERROR = "ERROR";
-    protected List<Product> mProductPosts;
-    protected ProductsAdapter adapter;
-    private String storeID;
+    protected List<Order> mOrderPosts;
+    protected OrdersAdapter adapter;
+    private String customerID;
     private TextView title;
 
-
-
-
-    public void setStoreId(String id){
-        storeID = id;
-    }
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
     // either dynamically or via XML layout inflation.
@@ -50,6 +42,7 @@ public class ListProductsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_feed, container, false);
+
 
     }
 
@@ -59,11 +52,13 @@ public class ListProductsFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
         rviewPosts = view.findViewById(R.id.rviewPosts);
+        title = view.findViewById((R.id.pageTitle));
+        title.setText("Your Orders");
 
         //create data source
-        mProductPosts = new ArrayList<>();
+        mOrderPosts = new ArrayList<>();
         //create adapter
-        adapter = new ProductsAdapter(getContext(), mProductPosts, customerCart);
+        adapter = new OrdersAdapter(getContext(), mOrderPosts, customerCart);
         //set adapter on the recycler view
         rviewPosts.setAdapter(adapter);
         //set the layout manger on the recycler view
@@ -74,35 +69,31 @@ public class ListProductsFragment extends Fragment {
 
     protected void queryPosts() {
 
-        Log.d("STORE", "ID = " + storeID);
 
-        ParseQuery<Product> productQuery = new ParseQuery<Product>(Product.class);
-        productQuery.setLimit(20);
-        ParseObject obj = ParseObject.createWithoutData("Store",storeID); // this pointer object class name and pointer value
-        productQuery.whereEqualTo("sto_id", obj); // this pointer object and parse object
+        Log.d("listord", "size -->"+ customerID);
+        ParseQuery<Order> orderQuery = new ParseQuery<Order>(Order.class);
+        orderQuery.setLimit(20);
+        ParseObject obj = ParseObject.createWithoutData("Customer", customerID); // this pointer object class name and pointer value
+        orderQuery.whereEqualTo("cus_id", obj); // this pointer object and parse object
         //postQuery.addDescendingOrder(Post.KEY_CREATED_AT);
-        productQuery.findInBackground(new FindCallback<Product>() {
+        orderQuery.findInBackground(new FindCallback<Order>() {
             @Override
-            public void done(List<Product> products, ParseException e) {
+            public void done(List<Order> orders, ParseException e) {
                 if (e != null){
                     Log.e(ERROR, "Error with Query");
                     e.printStackTrace();
                     return;
                 }
-                mProductPosts.addAll(products);
+                mOrderPosts.addAll(orders);
                 adapter.notifyDataSetChanged();
-                /*
-                for (int i=0; i<stores.size(); i++) {
-                    Store store = stores.get(i);
-                    //Log.d(POST, "Post: " + post.getCaption() + ", Username: " + post.getAuthor().getUsername());
-                }
-                */
 
             }
         });
     }
 
-    public ListProductsFragment (Cart cart){
-        customerCart=cart;
+    public ListOrdersFragment (String id, Cart cart){
+        this.customerID = id;
+        this.customerCart=cart;
     }
 }
+

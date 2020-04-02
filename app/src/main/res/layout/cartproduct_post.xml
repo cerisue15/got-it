@@ -58,6 +58,7 @@
         android:id="@+id/tvPrice"
         android:layout_width="106dp"
         android:layout_height="32dp"
+        android:layout_marginBottom="64dp"
         android:text="time"
         android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
         android:textColor="@color/colorPara_btn"
@@ -65,10 +66,10 @@
         app:fontFamily="@font/convergence"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.77"
+        app:layout_constraintHorizontal_bias="0.793"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/productName"
-        app:layout_constraintVertical_bias="0.436" />
+        app:layout_constraintVertical_bias="0.907" />
 
     <ImageButton
         android:id="@+id/add"
@@ -114,6 +115,7 @@
         android:id="@+id/delete"
         android:layout_width="29dp"
         android:layout_height="25dp"
+        android:background="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

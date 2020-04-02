@@ -1,10 +1,9 @@
-package com.example.gotit;
+package com.example.gotit.ParseClasses;
 
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
-import com.example.gotit.Store;
 
 @ParseClassName("Product")
 public class Product extends ParseObject {
