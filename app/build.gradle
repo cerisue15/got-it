@@ -48,8 +48,9 @@ dependencies {
     implementation 'com.github.jd-alexander:LikeButton:0.2.3'
 
     //Stripe
+    implementation 'com.stripe:stripe-android:+'
     implementation "com.stripe:stripe-java:18.12.0"
-    implementation 'com.stripe:stripe-android:14.2.1'
+    //implementation 'com.stripe:stripe-android:14.2.1'
 
 
     // for logging API calls to LogCat

@@ -8,11 +8,13 @@ import android.widget.ImageButton;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.gotit.Activities.LoginActivity;
 import com.example.gotit.ParseClasses.Cart;
 import com.example.gotit.ParseClasses.Product;
 import com.example.gotit.R;
@@ -111,9 +113,16 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             addToCart_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    customerCart.addProductToCart(product);
-                    //product.put("cart_id", ParseObject.createWithoutData("Cart", customerCart.getObjectId()) );
-                    product.saveInBackground();
+
+                    if (customerCart.isProductFromStore(product) == false){
+                        Toast.makeText(v.getContext(), "Can't add product to cart! \n Product is from a different store", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+
+                        customerCart.addProductToCart(product);
+                        //product.put("cart_id", ParseObject.createWithoutData("Cart", customerCart.getObjectId()) );
+                        //product.saveInBackground();
+                    }
                 }
             });
 

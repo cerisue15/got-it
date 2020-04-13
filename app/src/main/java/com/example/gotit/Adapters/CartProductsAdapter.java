@@ -21,6 +21,7 @@ import com.example.gotit.ParseClasses.Product;
 import com.example.gotit.R;
 import com.parse.ParseFile;
 
+import java.text.DecimalFormat;
 import java.util.List;
 public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapter.ViewHolder>{
 
@@ -101,34 +102,6 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
             minus_quantity = itemView.findViewById(R.id.minus);
             delete = itemView.findViewById(R.id.delete);
 
-            //----------------------------------------------------------------------------------
-            //  Allows a user to favorite a store
-            //----------------------------------------------------------------------------------
-
-            /*delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ParseQuery<Product> productQuery = new ParseQuery<Product>(Product.class);
-                    productQuery.setLimit(20);
-                    ParseObject obj = ParseObject.createWithoutData("Cart", customerCart.getObjectId()); // this pointer object class name and pointer value
-                    productQuery.whereEqualTo("cart_id", obj); // this pointer object and parse object
-                    //productQuery.addDescendingOrder(Post.KEY_CREATED_AT);
-                    productQuery.findInBackground(new FindCallback<Product>() {
-                        @Override
-                        public void done(List<Product> products, ParseException e) {
-                            if (e != null) {
-                                Log.e("ERROR", "Error with Query");
-                                e.printStackTrace();
-                                return;
-                            }
-                            else {
-                                products.get
-                            }
-
-                        }
-                    });
-                }
-            });*/
         }
 
         //----------------------------------------------------------------------------------
@@ -136,14 +109,20 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
         //----------------------------------------------------------------------------------
         public void bind(final Product product, @NonNull final ViewHolder holder ) {
 
+            // Get Product Name
             productName.setText(product.getProductName());
-            tvPrice.setText("$"+product.getProductPrice().toString());
 
+            // Get Product Price
+            DecimalFormat df2 = new DecimalFormat("#.##");
+            tvPrice.setText("$"+df2.format(product.getProductPrice()).toString());
+
+            // Get Product Image
             ParseFile image = product.getImage();
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);
             }
 
+            // Get Product Quantity for Cart
             tvCnt.setText("" + product.getcartQuantity());
 
             add_quantity.setOnClickListener(new View.OnClickListener() {
@@ -204,12 +183,6 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
                 }
             });
 
-            //tvCaption.setText(store.getCaption());
-            /*ParseFile image = post.getImage();
-               if(image != null){
-                   Glide.with(context).load(image.getUrl()).into(ivImage);
-               }*/
-            //Log.d("COMMENT", "Comments: " + post.getCommentCount());
 
         }
 

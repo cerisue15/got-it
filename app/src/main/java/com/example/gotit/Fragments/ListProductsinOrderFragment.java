@@ -28,8 +28,8 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.stripe.model.Source;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +45,8 @@ public class ListProductsinOrderFragment extends Fragment {
     protected List<OrderedItem> mOrderItemPosts;
     protected OrderItemsAdapter adapter;
     private TextView title;
+    private DecimalFormat df2 = new DecimalFormat("#.##");
+
 
     private TextView deliv_at;
     private TextView cust_address;
@@ -87,10 +89,10 @@ public class ListProductsinOrderFragment extends Fragment {
         title.setText("Your Order Details");
 
 
-        sub_total.setText(String.valueOf(Double.valueOf(order.getOrderTotal())));
-        tax.setText(String.valueOf(taxpercent));
-        deliv_fee.setText(String.valueOf(deliveryAmt));
-        total.setText(String.valueOf(taxpercent + deliveryAmt + Double.valueOf(order.getOrderTotal())));
+        sub_total.setText(df2.format(Double.valueOf(order.getOrderTotal())));
+        tax.setText(df2.format(taxpercent * Double.valueOf(order.getOrderTotal())));
+        deliv_fee.setText(df2.format(deliveryAmt));
+        total.setText(df2.format(taxpercent + deliveryAmt + Double.valueOf(order.getOrderTotal())));
 
 
         //Parse Query for Customer adress

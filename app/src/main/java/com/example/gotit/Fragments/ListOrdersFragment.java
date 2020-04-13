@@ -75,7 +75,6 @@ public class ListOrdersFragment extends Fragment {
         orderQuery.setLimit(20);
         ParseObject obj = ParseObject.createWithoutData("Customer", customerID); // this pointer object class name and pointer value
         orderQuery.whereEqualTo("cus_id", obj); // this pointer object and parse object
-        //postQuery.addDescendingOrder(Post.KEY_CREATED_AT);
         orderQuery.findInBackground(new FindCallback<Order>() {
             @Override
             public void done(List<Order> orders, ParseException e) {

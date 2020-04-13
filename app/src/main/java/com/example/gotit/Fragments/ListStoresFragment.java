@@ -70,7 +70,6 @@ public class ListStoresFragment extends Fragment {
 
         ParseQuery<Store> storeQuery = new ParseQuery<Store>(Store.class);
         storeQuery.setLimit(20);
-        //postQuery.addDescendingOrder(Post.KEY_CREATED_AT);
         storeQuery.findInBackground(new FindCallback<Store>() {
             @Override
             public void done(List<Store> stores, ParseException e) {
@@ -81,13 +80,6 @@ public class ListStoresFragment extends Fragment {
                 }
                 mStorePosts.addAll(stores);
                 adapter.notifyDataSetChanged();
-                /*
-                for (int i=0; i<stores.size(); i++) {
-                    Store store = stores.get(i);
-                    //Log.d(POST, "Post: " + post.getCaption() + ", Username: " + post.getAuthor().getUsername());
-                }
-                */
-
             }
         });
     }

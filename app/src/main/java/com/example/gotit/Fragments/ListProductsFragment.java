@@ -78,9 +78,8 @@ public class ListProductsFragment extends Fragment {
 
         ParseQuery<Product> productQuery = new ParseQuery<Product>(Product.class);
         productQuery.setLimit(20);
-        ParseObject obj = ParseObject.createWithoutData("Store",storeID); // this pointer object class name and pointer value
+        ParseObject obj = ParseObject.createWithoutData("Store", storeID); // this pointer object class name and pointer value
         productQuery.whereEqualTo("sto_id", obj); // this pointer object and parse object
-        //postQuery.addDescendingOrder(Post.KEY_CREATED_AT);
         productQuery.findInBackground(new FindCallback<Product>() {
             @Override
             public void done(List<Product> products, ParseException e) {
@@ -91,12 +90,6 @@ public class ListProductsFragment extends Fragment {
                 }
                 mProductPosts.addAll(products);
                 adapter.notifyDataSetChanged();
-                /*
-                for (int i=0; i<stores.size(); i++) {
-                    Store store = stores.get(i);
-                    //Log.d(POST, "Post: " + post.getCaption() + ", Username: " + post.getAuthor().getUsername());
-                }
-                */
 
             }
         });

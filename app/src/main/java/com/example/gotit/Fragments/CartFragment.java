@@ -29,6 +29,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class CartFragment extends Fragment {
     private Button checkout;
     private Cart customerCart;
     private Double subtotal=0.0;
-    private  String ccObj;
+    private DecimalFormat df2 = new DecimalFormat("#.##");
 
     public CartFragment(Cart cart){
         customerCart = cart;
@@ -84,6 +85,11 @@ public class CartFragment extends Fragment {
 
         queryPosts(customerCart);
 
+        //---------------------------------------------------
+        // Input orders
+        // Input ordered items
+        // Change Item quantity
+        //---------------------------------------------------
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,12 +109,26 @@ public class CartFragment extends Fragment {
                             Log.d("size",""+ objects.get(0).getObjectId());
 
                         ParseObject order = ParseObject.create("Order");
-                        order.put("ord_total", String.valueOf(subtotal));
+                        order.put("ord_total", String.valueOf(df2.format(subtotal)));
                         order.put("ord_status", "Paid");
+
+                        customerCart.getListProducts().get(0).getParseObject("sto_id").fetchIfNeededInBackground(new GetCallback<ParseObject>() {
+                            @Override
+                            public void done(ParseObject object, ParseException e) {
+                                ParseObject store = object;
+
+                                ParseObject storeObj = ParseObject.createWithoutData("Store", store.getObjectId());
+                                order.put("sto_id",storeObj );
+
+                            }
+                        });
+
+                        ParseObject addObj = ParseObject.createWithoutData("CustomerAddress", "SAZPENetqN");
+                        order.put("add_id",addObj );
                         ParseObject ccObj = ParseObject.createWithoutData("CreditCard", objects.get(0).getObjectId());
                         order.put("cc_id",ccObj );
                         order.put("cus_id", customerObj);
-                        order.saveInBackground(new SaveCallback() {
+                        order.saveInBackground(new SaveCallback() {                     // Save new Order
                             @Override
                             public void done(ParseException e) {
                                 if (e != null){
@@ -116,8 +136,6 @@ public class CartFragment extends Fragment {
                                     e.printStackTrace();
                                     return;
                                 }
-                                Log.d("Order", "Successful");
-
                             }
                         });
 
@@ -125,10 +143,9 @@ public class CartFragment extends Fragment {
                             ParseObject orderedItem = ParseObject.create("OrderedItem");
                             orderedItem.put("oid_quantity", product.getcartQuantity());
                             orderedItem.put("oid_price", product.getProductPrice());
-                            ParseObject oObj = ParseObject.createWithoutData("Order",order.getObjectId() );
                             orderedItem.put("ord_id", order );
                             orderedItem.put("pro_id", product);
-                            orderedItem.saveInBackground(new SaveCallback() {
+                            orderedItem.saveInBackground(new SaveCallback() {           // Save new OrderedItems
                                 @Override
                                 public void done(ParseException e) {
                                     if (e != null){
@@ -136,19 +153,32 @@ public class CartFragment extends Fragment {
                                         e.printStackTrace();
                                         return;
                                     }
-                                    Log.d("OrderedItem", "Successful");
+                                }
+                            });
 
+                            ParseQuery<Product> pQuery = new ParseQuery<Product>(Product.class);
+                            pQuery.whereEqualTo("objectId", product.getObjectId());
+                            pQuery.findInBackground(new FindCallback<Product>() {
+                                @Override
+                                public void done(List<Product> objects, ParseException e) {
+                                    if (e != null) {
+                                        Log.e(ERROR, "Error putting in item quantity");
+                                        e.printStackTrace();
+                                        return;
+                                    }
+
+                                    Number currQuantity = objects.get(0).getNumber("pro_quantity");
+                                    Number newQuanitity = (Integer)currQuantity - (Integer)product.getcartQuantity();
+                                    objects.get(0).put("pro_quantity", newQuanitity);
+                                    objects.get(0).saveInBackground();                     // Update Product Quantity
                                 }
                             });
                         }
                     }
                 });
-                Log.d("ccc",""+ ccObj);
-                //ParseObject ccObj = ParseObject.createWithoutData("CreditCard","3w1vILgeWR" );
 
                 Intent intent = new Intent(getActivity(), CheckoutActivity.class);
                 startActivity(intent);
-                Log.d("WORKING", "It's working");
             }
         });
     }
@@ -159,15 +189,13 @@ public class CartFragment extends Fragment {
         for(Product product : mProductPosts){
             subtotal += (Double) product.getProductPrice() * (Integer)product.getcartQuantity();
         }
-        Log.d("TOTAL", "-->" + subtotal);
-        totalTv.setText("$"+String.valueOf(subtotal));
+
+        totalTv.setText("$"+String.valueOf(df2.format(subtotal)));
         adapter.notifyDataSetChanged();
 
     }
 
     public void putCCid(String Id){
-        Log.d("ccc",""+ Id);
-        ccObj=Id;
     }
 
 }

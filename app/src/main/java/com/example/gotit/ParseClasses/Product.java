@@ -28,7 +28,7 @@ public class Product extends ParseObject {
     public ParseUser getBrandId() { return getParseUser(KEY_BRAND); }
     public void setBrandId(ParseUser brandId){ put(KEY_BRAND, brandId); }
 
-    public ParseUser getStoreId() { return getParseUser(KEY_STORE); }
+    public ParseObject getStoreId() { return getParseObject(KEY_STORE); }
 
 
     public String getProductType(){ return getString(KEY_TYPE); }
