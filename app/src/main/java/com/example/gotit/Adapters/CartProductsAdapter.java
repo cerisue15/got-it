@@ -149,7 +149,7 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
                     if ((Integer)product.getcartQuantity()>0){
 
                         count = (Integer)product.getcartQuantity();
-                        if (count > 0) {
+                        if (count > 1) {
                             count--;
                             product.setcartQuantity(count);
                             tvCnt.setText("" + count);

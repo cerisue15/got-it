@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,6 +67,9 @@ public class CategoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_category, container, false);
 
+        ImageView back_btn = (ImageView) getActivity().findViewById(R.id.back_btn);
+
+        back_btn.setVisibility(view.INVISIBLE);
         title = view.findViewById(R.id.pageTitle);
         title.setText("Welcome to Got It!");
 
@@ -81,6 +85,7 @@ public class CategoryFragment extends Fragment {
         browse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                back_btn.setVisibility(view.VISIBLE);
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.flContainer, new ListStoresFragment(customerCart));
                 fragmentTransaction.addToBackStack(FEED);

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -50,6 +51,9 @@ public class ListOrdersFragment extends Fragment {
     // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        ImageView back_btn = (ImageView) getActivity().findViewById(R.id.back_btn);
+
+        back_btn.setVisibility(view.INVISIBLE);
 
         rviewPosts = view.findViewById(R.id.rviewPosts);
         title = view.findViewById((R.id.pageTitle));

@@ -54,6 +54,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(context).inflate(R.layout.order_post, parent, false);
+
         return new ViewHolder(view);
     }
 
@@ -123,7 +124,6 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
             viewOrder_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     AppCompatActivity activity = (AppCompatActivity) v.getContext();
                     ListProductsinOrderFragment prodFrag = new ListProductsinOrderFragment(order);
                     Fragment myFragment = prodFrag;
