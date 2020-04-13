@@ -25,11 +25,19 @@ public class Cart{
     private Integer integ=0;
     private String customerId;
     private String nameProd, nameP;
-
+    private String storeName;
 
     public Cart(String c){
         super();
         this.customerId=c;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
     public String getCustomerId() {
@@ -37,7 +45,6 @@ public class Cart{
     }
 
     public void addProductToCart(Product product){
-        Log.d("HM", "--> " + hm.containsValue(product.getProductName()));
         if(!hm.containsValue(product.getProductName())){
             hm.put(integ, product.getProductName());
             products.add(product);
@@ -45,51 +52,34 @@ public class Cart{
         }
 
     }
+    public void deleteAllProducts(){
+        hm.clear();
+        products.clear();
+    }
 
     public List<Product> getListProducts(){
         return products;
     }
 
     public void deleteProductFromCart(Product product){
-        Log.d("HM", "--> " + hm.containsValue(product.getProductName()));
         hm.values().remove(product.getProductName());
         products.remove(product);
     }
 
-    public Boolean isProductFromStore(Product product){
+    public Boolean isProductFromStore(String s){
+
         final Boolean[] istrue = {false};
+
         if (products.size() != 0){
-            for (Product p : products){
 
-                p.getParseObject("sto_id").fetchIfNeededInBackground(new GetCallback<ParseObject>() {
-                    @Override
-                    public void done(ParseObject object, ParseException e) {
-                        ParseObject store = object;
-                        Log.d("names", "" + store.getObjectId());
-                        nameP = store.getString("sto_name");
+            Log.d("names", "" + getStoreName() +" "+ s);
 
-                        product.getParseObject("sto_id").fetchIfNeededInBackground(new GetCallback<ParseObject>() {
-                            @Override
-                            public void done(ParseObject object, ParseException e) {
-                                ParseObject store = object;
-                                Log.d("names", "" + store.getObjectId());
-                                nameProd = store.getString("sto_name");
-
-                                Log.d("names", "" + nameP +" "+ nameProd);
-
-                                if (nameP.equals(nameProd)==true){
-                                    istrue[0] = true;
-                                }
-                                else
-                                    istrue[0] = false;
-
-                            }
-                        });
-                    }
-                });
-
-                return istrue[0];
+            if(getStoreName().equals(s)){
+                return true;
             }
+            else return false;
+
+
         }
         return true;
     }

@@ -5,23 +5,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gotit.Adapters.OrderItemsAdapter;
 import com.example.gotit.ParseClasses.Cart;
-import com.example.gotit.ParseClasses.Customer;
-import com.example.gotit.ParseClasses.CustomerAddress;
 import com.example.gotit.ParseClasses.Order;
 import com.example.gotit.ParseClasses.OrderedItem;
-import com.example.gotit.ParseClasses.Product;
-import com.example.gotit.Adapters.ProductsAdapter;
 import com.example.gotit.R;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
@@ -55,6 +50,7 @@ public class ListProductsinOrderFragment extends Fragment {
     private TextView deliv_fee;
     private TextView total;
     private TextView status;
+    private TextView fileComplaint;
 
     private final Double taxpercent = 0.07;
     private final Double deliveryAmt = 5.00;
@@ -65,7 +61,7 @@ public class ListProductsinOrderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.order_details, container, false);
+        return inflater.inflate(R.layout.fragment_order_details, container, false);
 
     }
 
@@ -84,6 +80,7 @@ public class ListProductsinOrderFragment extends Fragment {
         tax = view.findViewById((R.id.tax));
         deliv_fee = view.findViewById((R.id.deliv_fee));
         total = view.findViewById((R.id.total));
+        fileComplaint = view.findViewById((R.id.fileComplaint));
 
         title = view.findViewById((R.id.title));
         title.setText("Your Order Details");
@@ -114,6 +111,17 @@ public class ListProductsinOrderFragment extends Fragment {
         SimpleDateFormat simpleDateFormat =new SimpleDateFormat(pattern, new Locale("fr", "FR"));
         String date = simpleDateFormat.format(order.getUpdatedAt());
         deliv_at.setText(date);
+
+        // Navigate to File Complaint Activity
+        fileComplaint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.flContainer, new FileComplaintFragment(order));
+                fragmentTransaction.addToBackStack(FEED);
+                fragmentTransaction.commit();
+            }
+        });
 
         //create data source
         mOrderItemPosts = new ArrayList<>();

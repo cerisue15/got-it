@@ -123,6 +123,7 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.ViewHolder
             viewProducts_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     ListProductsFragment prodFrag = new ListProductsFragment(cart);
                     prodFrag.setStoreId(store.getStoreId());

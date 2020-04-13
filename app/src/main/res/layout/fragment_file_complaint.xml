@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingTop="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="16dp"
+    android:background="#F7FDDD"
+    tools:context=".Activities.UserRegistrationActivity">
+
+    <EditText
+        android:id="@+id/userReg_fname"
+        android:layout_width="165dp"
+        android:layout_height="45dp"
+        android:background="@android:color/white"
+        android:ems="10"
+        android:hint=" First Name"
+        android:inputType="textPersonName"
+        app:fontFamily="@font/convergence"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.065"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.185" />
+
+    <EditText
+        android:id="@+id/userReg_lname"
+        android:layout_width="165dp"
+        android:layout_height="45dp"
+        android:background="@android:color/white"
+        android:ems="10"
+        android:hint=" Last Name"
+        android:inputType="textPersonName"
+        app:fontFamily="@font/convergence"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.902"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.185" />
+
+    <EditText
+        android:id="@+id/desc"
+        android:layout_width="343dp"
+        android:layout_height="277dp"
+        android:background="@android:color/white"
+        android:ems="10"
+        android:hint=" Please describe your issue here"
+        app:fontFamily="@font/convergence"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.625" />
+
+    <Button
+        android:id="@+id/btn_Submit"
+        android:layout_width="145dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="28dp"
+        android:background="#B2CF60"
+        android:text="SUBMIT"
+        android:textColor="#838D6B"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:fontFamily="@font/convergence"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.834"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.989" />
+
+    <Button
+        android:id="@+id/btn_Cancel"
+        android:layout_width="145dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:background="#B2CF60"
+        android:text="CANCEL"
+        android:textColor="#838D6B"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:fontFamily="@font/convergence"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.127"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.933" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="File a Complaint"
+        android:textColor="#2F4057"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:fontFamily="@font/baloo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

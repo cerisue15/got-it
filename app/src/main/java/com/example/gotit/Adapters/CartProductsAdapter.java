@@ -128,7 +128,6 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
             add_quantity.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("PLUS", "--->" + count);
 
                     count = (Integer)product.getcartQuantity();
                     count++;
@@ -149,12 +148,12 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
                 public void onClick(View v) {
                     if ((Integer)product.getcartQuantity()>0){
 
-                        Log.d("MINUS", "--->" + count);
-
                         count = (Integer)product.getcartQuantity();
-                        count--;
-                        product.setcartQuantity(count);
-                        tvCnt.setText("" + count);
+                        if (count > 0) {
+                            count--;
+                            product.setcartQuantity(count);
+                            tvCnt.setText("" + count);
+                        }
 
                         AppCompatActivity activity = (AppCompatActivity) v.getContext();
                         Fragment myFragment = new CartFragment(customerCart);
@@ -177,9 +176,6 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
                     activity.getSupportFragmentManager()
                             .beginTransaction().replace(R.id.flContainer, myFragment)
                             .commit();
-                    Log.d("DELETE", "--> deleted");
-
-
                 }
             });
 

@@ -1,6 +1,7 @@
 package com.example.gotit.Adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,10 @@ import com.example.gotit.Activities.LoginActivity;
 import com.example.gotit.ParseClasses.Cart;
 import com.example.gotit.ParseClasses.Product;
 import com.example.gotit.R;
+import com.parse.GetCallback;
+import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseObject;
 
 import java.util.List;
 
@@ -110,19 +114,40 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             }
             tvCaption.setText("$"+product.getProductPrice().toString());
 
+
+
             addToCart_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    if (customerCart.isProductFromStore(product) == false){
-                        Toast.makeText(v.getContext(), "Can't add product to cart! \n Product is from a different store", Toast.LENGTH_LONG).show();
-                    }
-                    else {
+                    product.getParseObject("sto_id").fetchIfNeededInBackground(new GetCallback<ParseObject>() {
+                        @Override
+                        public void done(ParseObject object, ParseException e) {
+                            ParseObject store = object;
+                            String name = store.getString("sto_name");
 
-                        customerCart.addProductToCart(product);
+                            if (customerCart.isProductFromStore(name) == false){
+                                Toast.makeText(v.getContext(), "Can't add product to cart! \n Product is from a different store", Toast.LENGTH_LONG).show();
+                            }
+                            else {
+                                customerCart.addProductToCart(product);
+                                product.getParseObject("sto_id").fetchIfNeededInBackground(new GetCallback<ParseObject>() {
+                                    @Override
+                                    public void done(ParseObject object, ParseException e) {
+                                        ParseObject store = object;
+                                        String nameProd = store.getString("sto_name");
+
+                                        customerCart.setStoreName(nameProd);
+                                    }
+                                });
+                            }
+                        }
+                    });
+
+
                         //product.put("cart_id", ParseObject.createWithoutData("Cart", customerCart.getObjectId()) );
                         //product.saveInBackground();
-                    }
+
                 }
             });
 

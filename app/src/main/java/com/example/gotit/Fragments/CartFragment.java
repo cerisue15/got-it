@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -171,14 +172,23 @@ public class CartFragment extends Fragment {
                                     Number newQuanitity = (Integer)currQuantity - (Integer)product.getcartQuantity();
                                     objects.get(0).put("pro_quantity", newQuanitity);
                                     objects.get(0).saveInBackground();                     // Update Product Quantity
+                                    customerCart.deleteAllProducts();
                                 }
                             });
                         }
                     }
                 });
 
-                Intent intent = new Intent(getActivity(), CheckoutActivity.class);
+                /*Intent intent = new Intent(getActivity(), CheckoutActivity.class);
                 startActivity(intent);
+                 */
+
+                // Remove everything from Cart and go back to Home Page
+
+
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.flContainer, new CategoryFragment(customerCart));
+                fragmentTransaction.commit();
             }
         });
     }
