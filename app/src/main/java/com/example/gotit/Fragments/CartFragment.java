@@ -124,9 +124,10 @@ public class CartFragment extends Fragment {
                             }
                         });
 
-                        ParseObject addObj = ParseObject.createWithoutData("CustomerAddress", "SAZPENetqN");
+                        ParseObject addObj = ParseObject.createWithoutData("CustomerAddress", "2oy82BrBUD");
                         order.put("add_id",addObj );
                         ParseObject ccObj = ParseObject.createWithoutData("CreditCard", objects.get(0).getObjectId());
+                        Log.d("cc",""+ objects.get(0).getObjectId());
                         order.put("cc_id",ccObj );
                         order.put("cus_id", customerObj);
                         order.saveInBackground(new SaveCallback() {                     // Save new Order
@@ -171,7 +172,14 @@ public class CartFragment extends Fragment {
                                     Number currQuantity = objects.get(0).getNumber("pro_quantity");
                                     Number newQuanitity = (Integer)currQuantity - (Integer)product.getcartQuantity();
                                     objects.get(0).put("pro_quantity", newQuanitity);
-                                    objects.get(0).saveInBackground();                     // Update Product Quantity
+                                    objects.get(0).saveInBackground(new SaveCallback() {
+                                        @Override
+                                        public void done(ParseException e) {
+                                            if (e!=null)
+                                                e.printStackTrace();
+                                        }
+                                    });
+                                    // Update Product Quantity
                                     customerCart.deleteAllProducts();
                                 }
                             });
