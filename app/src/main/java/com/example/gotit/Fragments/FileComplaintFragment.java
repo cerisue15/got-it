@@ -92,7 +92,7 @@ public class FileComplaintFragment extends Fragment {
                 ParseObject ordObj = ParseObject.createWithoutData("Order", order.getObjectId());
                 supportTicket.put("ord_id", ordObj);
                 supportTicket.put("sup_notes", desc.getText().toString());
-                supportTicket.put("sup_status", "Open");
+                supportTicket.put("sup_status", "Pending Approval");
                 ParseObject cusObj = ParseObject.createWithoutData("Customer",customerCart.getCustomerId());
                 supportTicket.put("sup_user_id", cusObj);
 
