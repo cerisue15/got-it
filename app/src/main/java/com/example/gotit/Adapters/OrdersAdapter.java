@@ -125,7 +125,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
                 @Override
                 public void onClick(View v) {
                     AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                    ListProductsinOrderFragment prodFrag = new ListProductsinOrderFragment(order);
+                    ListProductsinOrderFragment prodFrag = new ListProductsinOrderFragment(order, customerCart);
                     Fragment myFragment = prodFrag;
                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, myFragment).addToBackStack(LISTORDERPRODUCTS).commit();
 

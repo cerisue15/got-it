@@ -19,7 +19,9 @@ import com.example.gotit.Activities.UserRegistrationActivity;
 import com.example.gotit.ParseClasses.Cart;
 import com.example.gotit.ParseClasses.Order;
 import com.example.gotit.R;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.SaveCallback;
 
 import java.io.File;
 
@@ -90,10 +92,18 @@ public class FileComplaintFragment extends Fragment {
                 ParseObject ordObj = ParseObject.createWithoutData("Order", order.getObjectId());
                 supportTicket.put("ord_id", ordObj);
                 supportTicket.put("sup_notes", desc.getText().toString());
-                supportTicket.put("sup_status", "Submitted");
+                supportTicket.put("sup_status", "Open");
+                ParseObject cusObj = ParseObject.createWithoutData("Customer",customerCart.getCustomerId());
+                supportTicket.put("sup_user_id", cusObj);
 
 
-                supportTicket.saveInBackground();
+                supportTicket.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e!=null)
+                            e.printStackTrace();
+                    }
+                });
 
                 Toast.makeText(v.getContext(), "Complaint was submitted", Toast.LENGTH_SHORT).show();
 
@@ -105,7 +115,8 @@ public class FileComplaintFragment extends Fragment {
 
     }
 
-    FileComplaintFragment(Order order){
+    FileComplaintFragment(Order order, Cart cart){
         this.order = order;
+        this.customerCart = cart;
     }
 }

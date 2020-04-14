@@ -205,7 +205,7 @@ public class CartFragment extends Fragment {
 
         mProductPosts.addAll(cart.getListProducts());
         for(Product product : mProductPosts){
-            subtotal += (Double) product.getProductPrice() * (Integer)product.getcartQuantity();
+            subtotal += product.getProductPrice().doubleValue() * product.getcartQuantity().doubleValue();
         }
 
         totalTv.setText("$"+String.valueOf(df2.format(subtotal)));

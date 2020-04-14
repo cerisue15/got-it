@@ -101,6 +101,7 @@ public class LoginActivity extends AppCompatActivity {
         ParseQuery<ParseObject> userQuery = ParseQuery.getQuery("Customer");
         userQuery.whereEqualTo("cus_username", user);
         userQuery.whereEqualTo("cus_password", password);
+        //userQuery.whereEqualTo("cus_status", true);
         userQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {

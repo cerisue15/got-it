@@ -117,7 +117,7 @@ public class ListProductsinOrderFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.flContainer, new FileComplaintFragment(order));
+                fragmentTransaction.replace(R.id.flContainer, new FileComplaintFragment(order, customerCart));
                 fragmentTransaction.addToBackStack(FEED);
                 fragmentTransaction.commit();
             }
@@ -156,7 +156,8 @@ public class ListProductsinOrderFragment extends Fragment {
         });
     }
 
-    public ListProductsinOrderFragment(Order o){
+    public ListProductsinOrderFragment(Order o, Cart cart){
         order=o;
+        this.customerCart = cart;
     }
 }
