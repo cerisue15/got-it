@@ -32,10 +32,13 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.ViewHolder
     private List<Store> stores;
     private Boolean favorited = false;
     private final String LISTPRODUCTS = "LISTPRODUCTS";
+    private ParseObject cart;
 
-    public StoresAdapter(Context context, List<Store> stores) {
+
+    public StoresAdapter(Context context, List<Store> stores, ParseObject customerCart) {
         this.context = context;
         this.stores = stores;
+        this.cart = customerCart;
     }
 
     //----------------------------------------------------------------------------------
@@ -88,7 +91,7 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.ViewHolder
             //----------------------------------------------------------------------------------
             //  Allows a user to favorite a store
             //----------------------------------------------------------------------------------
-            heart_btn.setOnClickListener(new View.OnClickListener() {
+            heart_btn.setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -122,7 +125,7 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.ViewHolder
                 public void onClick(View view) {
 
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                    ListProductsFragment prodFrag = new ListProductsFragment();
+                    ListProductsFragment prodFrag = new ListProductsFragment(cart);
                     prodFrag.setStoreId(store.getStoreId());
                     Fragment myFragment = prodFrag;
 

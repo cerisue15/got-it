@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/post"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_margin="0dp"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="167dp"
+        android:layout_height="111dp"
+        android:layout_marginTop="28dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.102"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.278"
+        tools:srcCompat="@tools:sample/backgrounds/scenic[15]"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/productName"
+        android:layout_width="177dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="208dp"
+        android:layout_marginLeft="208dp"
+        android:text="Name"
+        android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+        android:textColor="@color/colorHead_Subhead"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:fontFamily="@font/convergence"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.187" />
+
+    <View
+        android:id="@+id/bar"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/colorHead_Subhead"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="106dp"
+        android:layout_height="32dp"
+        android:text="time"
+        android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+        android:textColor="@color/colorPara_btn"
+        android:textSize="18dp"
+        app:fontFamily="@font/convergence"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.77"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/productName"
+        app:layout_constraintVertical_bias="0.436" />
+
+    <ImageButton
+        android:id="@+id/add"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.625"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.975"
+        app:srcCompat="@drawable/ic_add_circle_outline_black_24dp" />
+
+    <ImageButton
+        android:id="@+id/minus"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.795"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.975"
+        app:srcCompat="@drawable/ic_remove" />
+
+    <TextView
+        android:id="@+id/itemCnt"
+        android:layout_width="31dp"
+        android:layout_height="31dp"
+        android:gravity="center"
+        android:text="1"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.71"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.952" />
+
+    <ImageButton
+        android:id="@+id/delete"
+        android:layout_width="29dp"
+        android:layout_height="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.977"
+        app:srcCompat="@drawable/ic_delete" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
