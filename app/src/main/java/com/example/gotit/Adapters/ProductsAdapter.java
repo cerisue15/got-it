@@ -137,7 +137,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
                                         ParseObject store = object;
                                         String nameProd = store.getString("sto_name");
 
-                                        customerCart.setStoreName(nameProd);
+                                        customerCart.setStore(nameProd, store.getObjectId());
                                     }
                                 });
                             }

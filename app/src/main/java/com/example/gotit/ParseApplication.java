@@ -9,6 +9,7 @@ import com.example.gotit.ParseClasses.Order;
 import com.example.gotit.ParseClasses.OrderedItem;
 import com.example.gotit.ParseClasses.Product;
 import com.example.gotit.ParseClasses.Store;
+import com.example.gotit.ParseClasses.Transaction;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
@@ -28,6 +29,7 @@ public class ParseApplication extends Application { ;
         ParseObject.registerSubclass(Order.class);
         ParseObject.registerSubclass(OrderedItem.class);
         ParseObject.registerSubclass(CreditCard.class);
+        ParseObject.registerSubclass(Transaction.class);
 
         // set applicationId, and server server based on the values in the Heroku settings.
         // clientKey is not needed unless explicitly configured

@@ -5,7 +5,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -17,12 +19,16 @@ import com.example.gotit.Adapters.OrderItemsAdapter;
 import com.example.gotit.ParseClasses.Cart;
 import com.example.gotit.ParseClasses.Order;
 import com.example.gotit.ParseClasses.OrderedItem;
+import com.example.gotit.ParseClasses.Product;
+import com.example.gotit.ParseClasses.Store;
+import com.example.gotit.ParseClasses.Transaction;
 import com.example.gotit.R;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.SaveCallback;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -51,6 +57,7 @@ public class ListProductsinOrderFragment extends Fragment {
     private TextView total;
     private TextView status;
     private TextView fileComplaint;
+    private Button btn_cancel2;
 
     private final Double taxpercent = 0.07;
     private final Double deliveryAmt = 5.00;
@@ -81,6 +88,7 @@ public class ListProductsinOrderFragment extends Fragment {
         deliv_fee = view.findViewById((R.id.deliv_fee));
         total = view.findViewById((R.id.total));
         fileComplaint = view.findViewById((R.id.fileComplaint));
+        btn_cancel2 = view.findViewById(R.id.btn_Cancel2);
 
         title = view.findViewById((R.id.title));
         title.setText("Your Order Details");
@@ -120,6 +128,73 @@ public class ListProductsinOrderFragment extends Fragment {
                 fragmentTransaction.replace(R.id.flContainer, new FileComplaintFragment(order, customerCart));
                 fragmentTransaction.addToBackStack(FEED);
                 fragmentTransaction.commit();
+            }
+        });
+
+        // Cancel an order functionality
+        btn_cancel2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "Order is being canceled", Toast.LENGTH_LONG).show();
+
+                ParseQuery<Transaction> transactionParseQuery = new ParseQuery<Transaction>(Transaction.class);
+                transactionParseQuery.whereEqualTo("ord_id", order);
+                transactionParseQuery.findInBackground(new FindCallback<Transaction>() {
+                    @Override
+                    public void done(List<Transaction> objects, ParseException e) {
+                        if (e != null) {
+                            e.printStackTrace();
+                        }
+
+                        ParseObject transaction = objects.get(0);
+                        transaction.deleteInBackground();
+                    }
+                });
+                ParseQuery<OrderedItem> oidQuery = new ParseQuery<OrderedItem>(OrderedItem.class);
+                oidQuery.whereEqualTo("ord_id", order);
+                oidQuery.findInBackground(new FindCallback<OrderedItem>() {
+                    @Override
+                    public void done(List<OrderedItem> objects, ParseException e) {
+                        if (e != null) {
+                            e.printStackTrace();
+                        }
+                        for ( OrderedItem orderedItem : objects){
+                            Number addquantity = orderedItem.getNumber("oid_quantity");
+                            String pro_id = orderedItem.getParseObject("pro_id").getObjectId();
+
+                            ParseQuery<Product> pQuery = new ParseQuery<Product>(Product.class);
+                            pQuery.whereEqualTo("objectId", pro_id);
+                            pQuery.findInBackground(new FindCallback<Product>() {
+                                @Override
+                                public void done(List<Product> objects, ParseException e) {
+                                    if (e != null) {
+                                        e.printStackTrace();
+                                    }
+
+                                    Number newquantity = (objects.get(0).getNumber("pro_quantity")).intValue() + addquantity.intValue();
+                                    objects.get(0).put("pro_quantity", newquantity);
+                                    objects.get(0).saveInBackground(new SaveCallback() {
+                                        @Override
+                                        public void done(ParseException e) {
+                                            if (e!=null) e.printStackTrace();
+                                        }
+                                    });
+                                }
+                            });
+                            orderedItem.deleteInBackground();
+                        }
+                    }
+                });
+
+                order.deleteInBackground();
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                getFragmentManager().popBackStack();
             }
         });
 

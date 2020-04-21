@@ -23,8 +23,7 @@ public class Cart{
     private Map<Integer, String> hm = new HashMap<>();
     List<Product> products = new ArrayList<>();
     private Integer integ=0;
-    private String customerId;
-    private String nameProd, nameP;
+    private String customerId, storeId;
     private String storeName;
 
     public Cart(String c){
@@ -36,12 +35,16 @@ public class Cart{
         return storeName;
     }
 
-    public void setStoreName(String storeName) {
+    public void setStore(String storeName, String store) {
         this.storeName = storeName;
+        this.storeId = store;
     }
 
     public String getCustomerId() {
         return customerId;
+    }
+    public String getStoreId() {
+        return storeId;
     }
 
     public void addProductToCart(Product product){
