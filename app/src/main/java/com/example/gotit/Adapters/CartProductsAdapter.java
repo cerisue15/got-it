@@ -189,5 +189,9 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
         }
     }
 }
+//----------------------------------------------------------------------------------
+//  (c) 2020, cerigoff Ceri Goff
+//----------------------------------------------------------------------------------
+
 
 

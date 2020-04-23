@@ -107,7 +107,7 @@ public class CartFragment extends Fragment {
                 int rand_int = 1 + rand.nextInt(3);
                 order.put("ord_cas_id", rand_int);
                 order.put("ord_total", String.valueOf(df2.format(subtotal)));
-                order.put("ord_status", "Paid");
+                order.put("ord_status", "Pending");
 
                 customerCart.getListProducts().get(0).getParseObject("sto_id").fetchIfNeededInBackground(new GetCallback<ParseObject>() {
                     @Override

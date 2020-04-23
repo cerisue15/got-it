@@ -236,3 +236,7 @@ public class ListProductsinOrderFragment extends Fragment {
         this.customerCart = cart;
     }
 }
+//----------------------------------------------------------------------------------
+//  (c) 2020, cerigoff Ceri Goff
+//----------------------------------------------------------------------------------
+

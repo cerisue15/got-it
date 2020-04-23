@@ -103,3 +103,7 @@ public class OrderItemsAdapter extends RecyclerView.Adapter<OrderItemsAdapter.Vi
     }
 
 }
+//----------------------------------------------------------------------------------
+//  (c) 2020, cerigoff Ceri Goff
+//----------------------------------------------------------------------------------
+

@@ -156,3 +156,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     }
 
 }
+//----------------------------------------------------------------------------------
+//  (c) 2020, cerigoff Ceri Goff
+//----------------------------------------------------------------------------------
+

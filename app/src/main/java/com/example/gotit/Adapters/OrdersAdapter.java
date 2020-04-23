@@ -137,3 +137,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
     }
 
 }
+//----------------------------------------------------------------------------------
+//  (c) 2020, cerigoff Ceri Goff
+//----------------------------------------------------------------------------------
+
