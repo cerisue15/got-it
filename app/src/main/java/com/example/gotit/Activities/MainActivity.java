@@ -14,11 +14,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.appcompat.widget.Toolbar;
 
 
+import com.example.gotit.Fragments.ListProductsSearchFragment;
 import com.example.gotit.ParseClasses.Cart;
 import com.example.gotit.R;
 import com.example.gotit.Fragments.CartFragment;
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Boolean home = false;
     private DrawerLayout drawer;
     private Cart cart;
+    private EditText searchtxt;
+
 
 
     //----------------------------------------------------------------------------------
@@ -55,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         ImageView back = findViewById(R.id.back_btn);
+        searchtxt = findViewById(R.id.searchtext);
+
         setSupportActionBar(toolbar);
         customer_id = getIntent().getStringExtra("customer_ID");
         cart = new Cart(customer_id);
@@ -160,9 +166,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (item.getItemId()) {
             case R.id.action_search:
-                //TODO: swap fragment here
+                String text = searchtxt.getText().toString();
+                if(text.length()!=0){
+                    fragment = new ListProductsSearchFragment(cart, text);
+                }
+
                 break;
             case R.id.action_shopcart:
+
                 fragment = new CartFragment(cart);
                 break;
             default:

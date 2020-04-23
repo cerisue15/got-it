@@ -214,7 +214,7 @@ public class ListProductsinOrderFragment extends Fragment {
 
         ParseQuery<OrderedItem> orderedItemParseQuery = new ParseQuery<OrderedItem>(OrderedItem.class);
         orderedItemParseQuery.setLimit(20);
-        ParseObject obj = ParseObject.createWithoutData("Order",order.getObjectId()); // this pointer object class name and pointer value
+        ParseObject obj = ParseObject.createWithoutData("Order", order.getObjectId()); // this pointer object class name and pointer value
         orderedItemParseQuery.whereEqualTo("ord_id", obj); // this pointer object and parse object
         orderedItemParseQuery.findInBackground(new FindCallback<OrderedItem>() {
             @Override
