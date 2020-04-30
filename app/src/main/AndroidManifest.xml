@@ -18,10 +18,9 @@
         <activity android:name=".Activities.MainActivity" />
         <activity android:name=".Activities.UserRegistrationActivity" />
         <activity android:name="Fragments.CartFragment"/>
-        <activity android:name=".Activities.CheckoutActivity" />
 
 
-    <activity android:name=".Activities.LoginActivity">
+        <activity android:name=".Activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

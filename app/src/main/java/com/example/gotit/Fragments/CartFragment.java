@@ -1,6 +1,5 @@
 package com.example.gotit.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,15 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gotit.ParseClasses.Cart;
 import com.example.gotit.Adapters.CartProductsAdapter;
-import com.example.gotit.Activities.CheckoutActivity;
-import com.example.gotit.ParseClasses.CreditCard;
-import com.example.gotit.ParseClasses.Customer;
 import com.example.gotit.ParseClasses.Product;
 import com.example.gotit.ParseClasses.Store;
 import com.example.gotit.R;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;

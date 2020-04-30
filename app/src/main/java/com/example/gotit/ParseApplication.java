@@ -34,11 +34,21 @@ public class ParseApplication extends Application { ;
         // set applicationId, and server server based on the values in the Heroku settings.
         // clientKey is not needed unless explicitly configured
         // any network interceptors must be added with the Configuration Builder given this syntax
+        /*Parse.initialize(new Parse.Configuration.Builder(this)
+                .applicationId("got-it-famu") // should correspond to APP_ID env variable
+                .clientKey("CeGreCzUVL")  // set explicitly unless clientKey is explicitly configured on Parse server
+                //.clientBuilder(builder)
+                .server("http://got-it-famu.herokuapp.com/parse").build());
+        */
+
+
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("cjones-parse-server") // should correspond to APP_ID env variable
                 .clientKey("Grayson2015")  // set explicitly unless clientKey is explicitly configured on Parse server
                 //.clientBuilder(builder)
                 .server("http://parse-server-example-cjones.herokuapp.com/parse").build());
+
+
     }
 
 }
