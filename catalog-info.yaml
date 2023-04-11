@@ -1,0 +1,13 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: got-it
+  description: 'Project in college'
+  annotations:
+    github.com/project-slug: 'cerisue15/got-it'
+  tags:
+    - java
+  links:
+    - url: https://github.com/cerisue15/got-it/issues
+      title: Backlog
+      icon: warning
